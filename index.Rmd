@@ -2,8 +2,25 @@
 title: "Portafolios Geo"
 
 
+
 ---
+
+
+<center>
+![](LOGO_OUT.png){height=75px}
+
+**Universidad Técnica de Machala**
+
+**Facultad de Ciencias Agropecuarias**
+
+**Carrera de Agronomía**
+
+**Geomática**
+</center>
+
 1. **Datos Informativos**
+
+**Docente:** Ing. Agr. Angel Eduardo Luna Romero
 
 **Semana:** 2
 
