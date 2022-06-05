@@ -11,6 +11,8 @@
 **Carrera de Agronomía**
 
 **Geomática**
+
+
 </center>
 
 1. **Datos Informativos**
@@ -29,6 +31,7 @@
 
 
 ![](int.jpg){height=180px}
+
 
 
 <center>
