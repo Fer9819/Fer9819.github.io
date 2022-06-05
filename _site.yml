@@ -4,9 +4,45 @@ navbar:
   title: "Geomática"
   left:
     - text: "Portafolios"
+      icon: fa-spinner fa-pulse fa-3x fa-fw
       href: index.html
-    - text: "Extra"
-      href: about.html
+      menu:
+        - text: "Primer hemiciclo"
+        - text: "Semana 1"
+          href: page-a.html
+        - text: "Semana 2"
+          href: page-b.html
+        - text: "Semana 3"
+          href: page-c.html
+        - text: "Semana 4"
+          href: page-d.html
+        - text: "Semana 6"
+          href: page-f.html
+        - text: "Semana 7"
+          href: page-g.html
+        - text: "Semana 8"
+          href: page-h.html          
+          
+          
+          
+        - text: "---------"
+        - text: "Segundo hemiciclo"
+        - text: "Semana 9"
+          href: page-i.html
+        - text: "Semana 10"
+          href: page-j.html
+        - text: "Semana 11"
+          href: page-k.html
+        - text: "Semana 12"
+          href: page-l.html
+        - text: "Semana 13"
+          href: page-m.html
+        - text: "Semana 14"
+          href: page-n.html          
+        - text: "Semana 15"
+          href: page-o.html
+        - text: "Semana 16"
+          href: page-p.html          
 output:
   html_document:
     theme: united

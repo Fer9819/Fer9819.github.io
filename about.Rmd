@@ -1,6 +1,2 @@
----
-title: "Mi primera página"
----
 
-More about this website.
-sddsdsdsdsds
+

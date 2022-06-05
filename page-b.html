@@ -11,7 +11,7 @@
 
 
 
-<title>index.knit</title>
+<title>page-b.knit</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -323,8 +323,83 @@ $(document).ready(function () {
 
 
 <center>
-<p><img src="CAR.png" height="600" /></p>
+<p><img src="LOGO_OUT.png" height="75" /></p>
+<p><strong>Universidad Técnica de Machala</strong></p>
+<p><strong>Facultad de Ciencias Agropecuarias</strong></p>
+<p><strong>Carrera de Agronomía</strong></p>
+<strong>Geomática</strong>
 </center>
+<ol style="list-style-type: decimal">
+<li><strong>Datos Informativos</strong></li>
+</ol>
+<p><strong>Docente:</strong> Ing. Agr. Angel Eduardo Luna Romero</p>
+<p><strong>Semana:</strong> 2</p>
+<p><strong>Fecha:</strong> Pasaje, 02 de Junio 2022</p>
+<p><strong>Fundamentación</strong></p>
+<p><strong>objetivo</strong></p>
+<p><strong>Procedimineto</strong></p>
+<p>-Conectar directorio, primero crear carpeta dentro del disco duro, si está fraccionado utilizar, la unidad <strong>D</strong>,caso contrario utilizar la unidad <strong>C</strong></p>
+<p><strong>Crear una carpeta: </strong></p>
+<p><em>dir.create(“Geomatica”)</em></p>
+<pre class="r"><code>setwd(&quot;C:/Users/Eirck/Desktop/port/Fer9819.github.io/&quot;)</code></pre>
+<p>-Instalar y llamar librerias</p>
+<pre class="r"><code>library(pacman)
+p_load(raster,sf,tidyverse,rgdal,printr)</code></pre>
+<p><strong>Cargar información</strong></p>
+<pre class="r"><code>pts &lt;- read.csv(&quot;C:/Users/Eirck/Desktop/port/Fer9819.github.io/DatosMuestreo.csv&quot;) %&gt;% as_tibble()
+table(pts)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Id</th>
+<th align="left">x</th>
+<th align="left">y</th>
+<th align="left">Da</th>
+<th align="left">pH</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">QBP1</td>
+<td align="left">620699.228</td>
+<td align="left">9636159.72</td>
+<td align="left">1.8</td>
+<td align="left">7.5</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pasar de tabla a dato espacial</strong></p>
+<pre class="r"><code>pts_sf &lt;- st_as_sf(pts, coords = c(&quot;x&quot;,&quot;y&quot;), crs = 32717)
+pts_sp &lt;- as(pts_sf, &#39;Spatial&#39;)
+table(pts_sf)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Id</th>
+<th align="left">Da</th>
+<th align="left">pH</th>
+<th align="left">geometry</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">QBP1</td>
+<td align="left">1.8</td>
+<td align="left">7.5</td>
+<td align="left">c(620699.228, 9636159.72)</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>TAMBIÉN SE PUEDE BAJAR DATOS DESDE LA WEB</li>
+</ul>
+<pre class="r"><code>ecu &lt;- getData(&quot;GADM&quot;, country = &quot;ECU&quot;, level =  0 )
+plot(ecu)</code></pre>
+<p><img src="page-b_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 
 
 
