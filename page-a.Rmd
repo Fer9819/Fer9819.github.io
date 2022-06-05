@@ -17,27 +17,32 @@
 
 1. **Datos Informativos**
 
-**Docente:** Ing. Agr. Angel Eduardo Luna Romero
+    **Docente:** Ing. Agr. Angel Eduardo Luna Romero
 
-**Semana:** 1
+    **Semana:** 1
 
-**Fecha:** Pasaje, 02 de Junio 2022
-
-**Fundamentación** 
-
-**objetivo** 
-
-**Procedimineto**
+    **Fecha:** Pasaje, 02 de Junio 2022
 
 
-![](int.jpg){height=180px}
+
+
 
 
 
 <center>
 
 
-**Introducción a la Geomática**
+## Introducción a la Geomática
+
+
+</center>
+
+
+
+<center>
+
+
+![](int.jpg){height=180px}
 
 </center>
 
@@ -45,39 +50,55 @@
 \justify
 La Geomática es una ciencia que engloba las Geociencias (por ejemplo: los sistemas de información geográfica (SIG)) con la integración y aplicación de las tecnologias de la información y la comunicación (TICs) Esta integración hace posible la captura, procesamiento, análisis, interpretación, almacenamiento modelización, aplicación y difusión de información digital geoespacial o localizada, aplicable en los ámbitos de la ingenieria, el territorio y la sociedad.
 
+<center>
+
+
 
 ![](1.jpg){height=220px}
 
 
 
 
+
 ![](2.jpg){height=320px}
+</center>
+
+
 
 \justify
 
 El primer paso hacia la creación del dato geográfico implica el establecimiento de un modelo conceptual relativo a cómo se ha de interpretar la realidad geográfica. Se trata de conceptualizar el espacio estudiado, la variable tratada y la variación de esta a lo largo del espacio.
 
 
-**Campos**
+
+<strong style="color: blue; opacity: 0.80;"> Campos </strong>
+
+
 
 
 \justify
 
-*Un campo es un modelo de variación dentro de un marco n-dimensional en el cual en cada punto dentro de dicho masco se tiene un valor de la variable estudiada
+* Un campo es un modelo de variación dentro de un marco n-dimensional en el cual en cada punto dentro de dicho masco se tiene un valor de la variable estudiada
 
-*La mayoria de las variables que se emplean en un SIG necesitan un único valor para describirse (piensese en variables como la elevación, la temperatura o la presión atmosérica, que solo requieren de un numero para expresarse)
+* La mayoria de las variables que se emplean en un SIG necesitan un único valor para describirse (piensese en variables como la elevación, la temperatura o la presión atmosérica, que solo requieren de un numero para expresarse)
 
 
-**Entidades discretas**
+<strong style="color: blue; opacity: 0.80;">  Entidades discretas </strong>
+
+
+
 
 \justify
 
-*No asocia a cada punto geográfico un valor, sino que concibe un entorno geografico cono un espacia vacia sobre el que se sitúan distintos elementos (entidades) que lo van menando 
+* No asocia a cada punto geográfico un valor, sino que concibe un entorno geografico cono un espacia vacia sobre el que se sitúan distintos elementos (entidades) que lo van menando 
 
-*Son en general más sencillas de comprender como concepto fuera de un ámbito técnico
+* Son en general más sencillas de comprender como concepto fuera de un ámbito técnico
 
 
-**Conceptualización*}**
+
+<strong style="color: blue; opacity: 0.80;">  Conceptualización</strong>
+
+
 
 
 \justify
@@ -85,13 +106,24 @@ El primer paso hacia la creación del dato geográfico implica el establecimient
 Los modelos geográficos nos ofrecen una concepcion particular del espacio geográfico y sus atributos. En base a ellos, el siguiente paso es reducir las propiedades de dichos modelos a un conjunto finito de elementos de tal modo que el registro de dichos elementos sirva para almacenar la realidad que los modelos geográficos describen. Para ello, empleamos los modelos de representación, también denominados modelos de datos.
 
 
+<center>
+
+
+
 ![](3.jpg){height=180px}
 
+</center>
+
+<strong style="color: blue; opacity: 0.80;"> Fundamentos</strong>
 
 
-**Fundamentos**
 
 
 \justify
 Los modelos de representación definen una forma de recoger la realidad mediante unidades básicas (sean estas celdas en una malla, o bien primitivas geométricas definidas de una u otra manera), mientras que los modelos de almacenamiento plantean básicamente un esquema de cómo convertir dichas unidades en valores numéricos de la forma más eficiente. Es decir, como escribir dichos valores en un soporte digital o guardarlos en la memoria del ordenador de la mejor manera posible
+
+
+
+
+
 

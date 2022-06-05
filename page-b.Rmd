@@ -14,17 +14,16 @@
 
 1. **Datos Informativos**
 
-**Docente:** Ing. Agr. Angel Eduardo Luna Romero
+    **Docente:** Ing. Agr. Angel Eduardo Luna Romero
 
-**Semana:** 2
+    **Semana:** 2
 
-**Fecha:** Pasaje, 02 de Junio 2022
+    **Fecha:** Pasaje, 02 de Junio 2022
 
-**Fundamentación** 
 
-**objetivo** 
+<strong style="color: blue; opacity: 0.80;"> Procedimineto </strong>
 
-**Procedimineto**
+    
 
 
 -Conectar directorio, primero crear carpeta dentro del disco duro, si está  fraccionado utilizar, la unidad **D**,caso contrario utilizar la unidad  **C**
@@ -41,6 +40,13 @@ setwd("C:/Users/Eirck/Desktop/port/Fer9819.github.io/")
 
 -Instalar y llamar librerias
 
+* install.packages("tidyverse", dependencies=T)
+
+* install.packages("tidyverse")
+
+-Después procedemos a llamar la libreria
+
+* library(tidyverse)
 
 ```{r}
 library(pacman)

@@ -45,5 +45,5 @@ navbar:
           href: page-p.html          
 output:
   html_document:
-    theme: united
+    theme: cerulean
     highlight: textmate
