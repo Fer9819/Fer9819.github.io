@@ -1,5 +1,63 @@
 ---
-title: "My Website"
----
+title: "Portafolios Geo"
 
-Hello, Website!
+
+---
+1. **Datos Informativos**
+
+**Semana:** 2
+
+**Fecha:** Pasaje, 02 de Junio 2022
+
+**Fundamentación** 
+
+**objetivo** 
+
+**Procedimineto**
+
+
+-Conectar directorio, primero crear carpeta dentro del disco duro, si está  fraccionado utilizar, la unidad **D**,caso contrario utilizar la unidad  **C**
+
+**Crear una carpeta: **
+
+*dir.create("Geomatica")*
+
+
+```{r}
+setwd("D:/ERICK/5to semestre/Geo/semana2/")
+
+```
+
+-Instalar y llamar librerias
+
+
+```{r}
+library(pacman)
+p_load(raster,sf,tidyverse,rgdal,printr)
+```
+
+
+**Cargar información**
+
+```{r}
+pts <- read.csv("D:/ERICK/5to semestre/Geo/semana2/DatosMuestreo.csv") %>% as_tibble()
+table(pts)
+
+```
+
+
+**Pasar de tabla a dato espacial**
+
+```{r}
+pts_sf <- st_as_sf(pts, coords = c("x","y"), crs = 32717)
+pts_sp <- as(pts_sf, 'Spatial')
+table(pts_sf)
+```
+
+- TAMBIÉN SE PUEDE BAJAR DATOS DESDE LA WEB
+
+
+```{r}
+ecu <- getData("GADM", country = "ECU", level =  0 )
+plot(ecu)
+```

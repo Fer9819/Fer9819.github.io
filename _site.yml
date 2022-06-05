@@ -1,9 +1,13 @@
 name: "my-website"
 output_dir: "."
 navbar:
-  title: "My Website"
+  title: "Geomática"
   left:
-    - text: "Home"
+    - text: "Portafolios"
       href: index.html
-    - text: "About"
+    - text: "Extra"
       href: about.html
+output:
+  html_document:
+    theme: united
+    highlight: textmate
