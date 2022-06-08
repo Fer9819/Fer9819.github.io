@@ -1,7 +1,7 @@
 name: "my-website"
 output_dir: "."
 navbar:
-  title: "Geomáticas"
+  title: "Geomática"
   left:
     - text: "Portafolio"
       icon: fa-spinner fa-pulse fa-3x fa-fw
