@@ -3,7 +3,7 @@ output_dir: "."
 navbar:
   title: "Geomática."
   left:
-    - text: "Portafolios"
+    - text: "Portafolio"
       icon: fa-spinner fa-pulse fa-3x fa-fw
       href: index.html
       menu:
