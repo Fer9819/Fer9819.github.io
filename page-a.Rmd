@@ -32,7 +32,7 @@
 <center>
 
 
-## Introducción a la Geomática
+## Introducción a la Geomática.
 
 
 </center>
