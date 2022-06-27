@@ -172,7 +172,7 @@ Los modelos de representación definen una forma de recoger la realidad mediante
 *dir.create("Geomatica")*
 
 ```{r, echo=FALSE}
-setwd("D:/ERICK/5to semestre/Geo/semana2/")
+setwd("C:/Users/Usuario/Desktop/R/Fer9819.github.io")
 
 ```
 
@@ -185,7 +185,7 @@ p_load(raster,sf,tidyverse,rgdal,printr)
 **Cargar información**
 
 ```{r}
-pts <- read.csv("D:/ERICK/5to semestre/Geo/semana2/DatosMuestreo.csv") %>% as_tibble()
+pts <- read.csv("C:/Users/Usuario/Desktop/R/Fer9819.github.io/DatosMuestreo.csv") %>% as_tibble()
 table(pts)
 
 ```

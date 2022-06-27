@@ -34,7 +34,7 @@
 
 
 ```{r}
-setwd("C:/Users/Eirck/Desktop/port/Fer9819.github.io/")
+setwd("C:/Users/Usuario/Desktop/R/Fer9819.github.io")
 
 ```
 
@@ -57,7 +57,7 @@ p_load(raster,sf,tidyverse,rgdal,printr)
 **Cargar información**
 
 ```{r}
-pts <- read.csv("C:/Users/Eirck/Desktop/port/Fer9819.github.io/DatosMuestreo.csv") %>% as_tibble()
+pts <- read.csv("C:/Users/Usuario/Desktop/R/Fer9819.github.io/DatosMuestreo.csv") %>% as_tibble()
 table(pts)
 
 ```

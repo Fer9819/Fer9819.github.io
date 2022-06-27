@@ -339,7 +339,7 @@ $(document).ready(function () {
 <p>-Conectar directorio, primero crear carpeta dentro del disco duro, si está fraccionado utilizar, la unidad <strong>D</strong>,caso contrario utilizar la unidad <strong>C</strong></p>
 <p><strong>Crear una carpeta: </strong></p>
 <p><em>dir.create(“Geomatica”)</em></p>
-<pre class="r"><code>setwd(&quot;C:/Users/Eirck/Desktop/port/Fer9819.github.io/&quot;)</code></pre>
+<pre class="r"><code>setwd(&quot;C:/Users/Usuario/Desktop/R/Fer9819.github.io&quot;)</code></pre>
 <p>-Instalar y llamar librerias</p>
 <ul>
 <li><p>install.packages(“tidyverse”, dependencies=T)</p></li>
@@ -352,7 +352,7 @@ $(document).ready(function () {
 <pre class="r"><code>library(pacman)
 p_load(raster,sf,tidyverse,rgdal,printr)</code></pre>
 <p><strong>Cargar información</strong></p>
-<pre class="r"><code>pts &lt;- read.csv(&quot;C:/Users/Eirck/Desktop/port/Fer9819.github.io/DatosMuestreo.csv&quot;) %&gt;% as_tibble()
+<pre class="r"><code>pts &lt;- read.csv(&quot;C:/Users/Usuario/Desktop/R/Fer9819.github.io/DatosMuestreo.csv&quot;) %&gt;% as_tibble()
 table(pts)</code></pre>
 <table>
 <thead>
