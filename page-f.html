@@ -270,13 +270,13 @@ $(document).ready(function () {
       <a href="page-d.html">Semana 4</a>
     </li>
     <li>
-      <a href="page-f.html">Semana 6</a>
+      <a href="page-f.html">Semana 5</a>
     </li>
     <li>
-      <a href="page-g.html">Semana 7</a>
+      <a href="page-g.html">Semana 6</a>
     </li>
     <li>
-      <a href="page-h.html">Semana 8</a>
+      <a href="page-h.html">Semana 7</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">Segundo hemiciclo</li>
@@ -322,38 +322,139 @@ $(document).ready(function () {
 </div>
 
 
-<html>
 <center>
-<table border="4">
+<p><img src="LOGO_OUT.png" height="75" /></p>
+<p><strong>Universidad Técnica de Machala</strong></p>
+<p><strong>Facultad de Ciencias Agropecuarias</strong></p>
+<p><strong>Carrera de Agronomía</strong></p>
+<p><strong>Geomática</strong></p>
 </center>
-<tr>
-<td>
-<body>
-<center>
-Cálcular porosidad
-</CENTER>
-<br><br>
-</body>
-<body>
-<form name="MyForm">
-Densidad aparente :<input type="text" name="numero1" size="20"><br><br> Densidad real :<input type="text" name="numero2" size="20"><br><br> Resultado porosidad : <input type="text" name="resultado" size="20"><br><br>
-<center>
-<input type="button" value="Cálcular" onclick="porosidad()">
-</center>
-<p><input type="reset" value="c"></p>
-</form>
-<script>
-     function porosidad() {
-     var n1 = parseFloat(document.MyForm.numero1.value);
-     var n2 = parseFloat(document.MyForm.numero2.value);
-     document.MyForm.resultado.value=100-((n1/n2)*100);
-     }
-    </script>
-</body>
-</td>
-</tr>
-</table>
-</html>
+<ol style="list-style-type: decimal">
+<li><p><strong>Datos Informativos</strong></p>
+<p><strong>Docente:</strong> Ing. Agr. Angel Eduardo Luna Romero</p>
+<p><strong>Semana:</strong> 5</p>
+<p><strong>Fecha:</strong> Pasaje, 23 de Junio 2022</p></li>
+</ol>
+<pre class="r"><code>setwd(&quot;C:/Users/Eirck/Desktop/diarios/&quot;)
+library(pacman)
+p_load( sf, sp,raster, rgdal, tidyverse, rgeos)</code></pre>
+<p>#####objeto espacial = 1 Geometria ,3 atributos( dataframe), #2 sistema de referencia de coordenadas(crs)</p>
+<div id="crear-geometria-de-objeto-espacial" class="section level1">
+<h1>Crear geometria de objeto espacial ————————————–</h1>
+<p>#si no queremos que aparezca #mch &lt;- suppressMessages(read_csv(“Machala.csv”))</p>
+<pre class="r"><code>mch &lt;- read_csv(&quot;Machala.csv&quot;) %&gt;% 
+  as.matrix()</code></pre>
+<pre><code>## Rows: 2847 Columns: 2
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## dbl (2): x, y
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>#crear un poligono</p>
+<pre class="r"><code>mchsf &lt;- st_polygon(list(mch))
+class(mchsf)</code></pre>
+<pre><code>## [1] &quot;XY&quot;      &quot;POLYGON&quot; &quot;sfg&quot;</code></pre>
+<pre class="r"><code>plot(mchsf)</code></pre>
+<p><img src="page-f_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+</div>
+<div id="adicionar-el-crs-al-objeto-espacial--" class="section level1">
+<h1>Adicionar el crs al objeto espacial ————————————-</h1>
+<pre class="r"><code>mchsf &lt;- st_sfc(mchsf, crs = 32717)</code></pre>
+<p>#libreria sf es una libreria mas actual, tienen normativas estandarizadas # en estadisticasiempre manejamos tablas # cuando filtramos, movemos, sf nos deja manejar el dato espacial como #una tabla normal</p>
+</div>
+<div id="adicionar-los-atributos-tabla-de-atributos--" class="section level1">
+<h1>Adicionar los atributos (tabla de atributos) —————————-</h1>
+<pre class="r"><code>df &lt;- data.frame(Canton= &quot;Machala&quot;, codigo = 07)
+mchsf &lt;- st_sf(df, mchsf)</code></pre>
+</div>
+<div id="cuando-vamos-a-registrar-datos" class="section level1">
+<h1>cuando vamos a registrar datos</h1>
+<p>#guardar archivo</p>
+<pre class="r"><code>st_write(mchsf, &quot;Machala.shp&quot;, delete_layer = T)</code></pre>
+<pre><code>## Deleting layer `Machala&#39; using driver `ESRI Shapefile&#39;
+## Writing layer `Machala&#39; to data source `Machala.shp&#39; using driver `ESRI Shapefile&#39;
+## Writing 1 features with 2 fields and geometry type Polygon.</code></pre>
+</div>
+<div id="desarrollo-tarea" class="section level1">
+<h1>desarrollo tarea ——————————————————–</h1>
+<p>#carfar archivos de machala, pea?a, pasaje y la victoria #mch &lt;- mch[-1]</p>
+<pre class="r"><code>mch &lt;- read_csv(&quot;Machala.csv&quot;) %&gt;% 
+  as.matrix()</code></pre>
+<pre><code>## Rows: 2847 Columns: 2
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## dbl (2): x, y
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>pea&lt;- read_csv(&quot;LaPeanha.csv&quot;) %&gt;% 
+  as.matrix()</code></pre>
+<pre><code>## Rows: 345 Columns: 2
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## dbl (2): x, y
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>psj &lt;- read_csv(&quot;Pasaje.csv&quot;) %&gt;% 
+  as.matrix()</code></pre>
+<pre><code>## Rows: 1057 Columns: 2
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## dbl (2): x, y
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>vct&lt;- read_csv(&quot;Victoria.csv&quot;) %&gt;% 
+  as.matrix()</code></pre>
+<pre><code>## Rows: 1281 Columns: 2
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## dbl (2): x, $y
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>#crear multipoligonos poligonos</p>
+<pre class="r"><code>mlt &lt;- st_multipolygon(list(list(mch),list(pea),list(psj),
+                            list(vct)))
+plot(mlt)</code></pre>
+<p><img src="page-f_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>#para ver si cierra el oligono #head.matrix(mch,2) #tail.matrix(mch,2)</p>
+<p>#sitema de referencia</p>
+<pre class="r"><code>mlt &lt;- st_sfc(mlt,crs = 32717)
+
+df &lt;- data.frame(Provincia =&quot;EL ORO&quot;,Canton = c(&quot;Machala&quot;, 
+                                                rep (&quot;Pasaje&quot;,2),
+                                                &quot;Santa Rosa&quot;),
+                 Parroquia= c(&quot;Machala&quot;,&quot;La Pea?a&quot;, &quot;Pasaje&quot;,&quot;La Victoria&quot;))
+
+mlt &lt;- st_sf(df, mlt)</code></pre>
+<pre><code>## Warning in data.frame(..., check.names = FALSE): row names were found from a
+## short variable and have been discarded</code></pre>
+<pre class="r"><code>st_write(mlt, &quot;C:/Users/Eirck/Desktop/diarios/Fer9819.github.iomlt.shp&quot;, delete_layer = T)</code></pre>
+<pre><code>## Writing layer `Fer9819.github.iomlt&#39; to data source 
+##   `C:/Users/Eirck/Desktop/diarios/Fer9819.github.iomlt.shp&#39; using driver `ESRI Shapefile&#39;
+## Writing 4 features with 3 fields and geometry type Multi Polygon.</code></pre>
+</div>
+<div id="cargar-puntos-y-pasarlos-a-objeo-espacial--" class="section level1">
+<h1>Cargar puntos y pasarlos a objeo espacial ——————————-</h1>
+<pre class="r"><code>pts &lt;- read_csv(&quot;Puntos.csv&quot;)</code></pre>
+<pre><code>## Rows: 3 Columns: 2
+## -- Column specification --------------------------------------------------------
+## Delimiter: &quot;,&quot;
+## dbl (2): x, y
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>pts$id &lt;- paste0(&quot;P&quot;,1:3)
+ptsf &lt;- st_as_sf(pts, coords = c(&quot;x&quot;, &quot;y&quot;), crs = 32717)</code></pre>
+<p>#Geoproceso buffer</p>
+<pre class="r"><code>bf10k &lt;- st_buffer(ptsf %&gt;% 
+                     filter(id==&quot;P1&quot;),dist = 10000)
+plot(st_geometry(bf10k))</code></pre>
+<p><img src="page-f_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
 
 
 
