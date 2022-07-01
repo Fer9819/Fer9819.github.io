@@ -336,8 +336,9 @@ $(document).ready(function () {
 <p><strong>Fecha:</strong> Pasaje, 23 de Junio 2022</p></li>
 </ol>
 <pre class="r"><code>setwd(&quot;C:/Users/Eirck/Desktop/diarios/&quot;)
-library(pacman)
-p_load( sf, sp,raster, rgdal, tidyverse, rgeos)</code></pre>
+library(pacman)</code></pre>
+<pre><code>## Warning: package &#39;pacman&#39; was built under R version 4.1.3</code></pre>
+<pre class="r"><code>p_load( sf, sp,raster, rgdal, tidyverse, rgeos)</code></pre>
 <p>#####objeto espacial = 1 Geometria ,3 atributos( dataframe), #2 sistema de referencia de coordenadas(crs)</p>
 <div id="crear-geometria-de-objeto-espacial" class="section level1">
 <h1>Crear geometria de objeto espacial ————————————–</h1>
@@ -378,7 +379,8 @@ mchsf &lt;- st_sf(df, mchsf)</code></pre>
 </div>
 <div id="desarrollo-tarea" class="section level1">
 <h1>desarrollo tarea ——————————————————–</h1>
-<p>#carfar archivos de machala, pea?a, pasaje y la victoria #mch &lt;- mch[-1]</p>
+<p>#carfar archivos de machala, pea?a, pasaje y la victoria</p>
+<p>#mch &lt;- mch[-1]</p>
 <pre class="r"><code>mch &lt;- read_csv(&quot;Machala.csv&quot;) %&gt;% 
   as.matrix()</code></pre>
 <pre><code>## Rows: 2847 Columns: 2
@@ -433,12 +435,13 @@ mlt &lt;- st_sf(df, mlt)</code></pre>
 <pre><code>## Warning in data.frame(..., check.names = FALSE): row names were found from a
 ## short variable and have been discarded</code></pre>
 <pre class="r"><code>st_write(mlt, &quot;C:/Users/Eirck/Desktop/diarios/Fer9819.github.iomlt.shp&quot;, delete_layer = T)</code></pre>
-<pre><code>## Writing layer `Fer9819.github.iomlt&#39; to data source 
+<pre><code>## Deleting layer `Fer9819.github.iomlt&#39; using driver `ESRI Shapefile&#39;
+## Writing layer `Fer9819.github.iomlt&#39; to data source 
 ##   `C:/Users/Eirck/Desktop/diarios/Fer9819.github.iomlt.shp&#39; using driver `ESRI Shapefile&#39;
 ## Writing 4 features with 3 fields and geometry type Multi Polygon.</code></pre>
 </div>
-<div id="cargar-puntos-y-pasarlos-a-objeo-espacial--" class="section level1">
-<h1>Cargar puntos y pasarlos a objeo espacial ——————————-</h1>
+<div id="cargar-puntos-y-pasarlos-a-objeto-espacial-" class="section level1">
+<h1>Cargar puntos y pasarlos a objeto espacial——————————-</h1>
 <pre class="r"><code>pts &lt;- read_csv(&quot;Puntos.csv&quot;)</code></pre>
 <pre><code>## Rows: 3 Columns: 2
 ## -- Column specification --------------------------------------------------------
@@ -454,6 +457,49 @@ ptsf &lt;- st_as_sf(pts, coords = c(&quot;x&quot;, &quot;y&quot;), crs = 32717)<
                      filter(id==&quot;P1&quot;),dist = 10000)
 plot(st_geometry(bf10k))</code></pre>
 <p><img src="page-f_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="qgis" class="section level1">
+<h1>QGIS———————————————————————–</h1>
+<p>Primero procedemos a cambiar el sistema de referencia de coordenadas en EPSG:32717.</p>
+<p><img src="uno.png" height="500" /></p>
+<p>Procedemos añadir nuestra capa en formato shape de ESRI</p>
+<p><img src="dos.JPG" height="500" /> Podemos observar el shape</p>
+<p><img src="tres.JPG" height="500" /></p>
+<p>Procedemos a ir en capa, en la opción de administrador de fuente de datos</p>
+<p><img src="cuatro.JPG" height="500" /></p>
+<p>Seleccionamos texto delimitado, para subir nuestro archivo .csv</p>
+<p><img src="cinco.JPG" height="500" /></p>
+<p>Podemos observar nuestro archi delimitado por puntos</p>
+<p><img src="seis.JPG" height="500" /></p>
+<p>Observamos en información, como nuestro archivo esta delimitado</p>
+<p><img src="siete.JPG" height="500" /></p>
+<p>Exportamos y lo guardamos en fomato shape</p>
+<p><img src="ocho.JPG" height="500" /></p>
+<p><img src="nueve.JPG" height="500" /></p>
+<p><img src="diez.JPG" height="500" /></p>
+<p>Procedemos a ir a caja de herremientas de procesos y en la opción de buscar escribimos Puntos a ruta</p>
+<p><img src="once.JPG" height="500" /></p>
+<p>Doble click y sellecionamos el archivo que exportamos</p>
+<p><img src="trece.JPG" height="500" /></p>
+<p>Podemos observar, que se formo una linea que estan sobreto todos los puntos</p>
+<p><img src="catorce.JPG" height="500" /></p>
+<p>Cambiamos el formato de lineas a polígono</p>
+<p><img src="quince.jpg" height="500" /></p>
+<p>ejecutamos</p>
+<p><img src="d16.JPG" height="500" /></p>
+<p>Procedemos abrir la tabal de atributos y editamos</p>
+<p><img src="17.JPG" height="500" /></p>
+<p>Cambiamos un archivo temporal a un shape</p>
+<p><img src="18.JPG" height="500" /></p>
+<p>Procedemos a editar la tabla de atributos, para luego añadir un nuevo campo, en texto, el cual vamos a ubicar los 3 puntos</p>
+<p><img src="19.JPG" height="500" /></p>
+<p><img src="20.JPG" height="500" /></p>
+<p><img src="21.JPG" height="500" /></p>
+<p><img src="22.jpg" height="500" /></p>
+<p>Procedemos a realizar la zona buffer</p>
+<p><img src="24.JPG" height="500" /></p>
+<p>Zona buffer realizada</p>
+<p><img src="25.JPG" height="500" /></p>
 </div>
 
 

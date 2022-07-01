@@ -46,6 +46,7 @@ mch <- read_csv("Machala.csv") %>%
 ```
 
 #crear un poligono
+
 ```{r}
 mchsf <- st_polygon(list(mch))
 class(mchsf)
@@ -89,6 +90,7 @@ st_write(mchsf, "Machala.shp", delete_layer = T)
 # desarrollo tarea --------------------------------------------------------
 
 #carfar archivos de machala, pea?a, pasaje y la victoria
+
 #mch <- mch[-1]
 
 
@@ -119,6 +121,7 @@ plot(mlt)
 
 
 #sitema de referencia
+
 ```{r}
 mlt <- st_sfc(mlt,crs = 32717)
 
@@ -135,7 +138,7 @@ st_write(mlt, "C:/Users/Eirck/Desktop/diarios/Fer9819.github.iomlt.shp", delete_
 
 
 
-# Cargar puntos y pasarlos a objeo espacial -------------------------------
+# Cargar puntos y pasarlos a objeto espacial-------------------------------
 
 
 ```{r}
@@ -154,6 +157,122 @@ bf10k <- st_buffer(ptsf %>%
                      filter(id=="P1"),dist = 10000)
 plot(st_geometry(bf10k))
 ```
+
+
+# QGIS-----------------------------------------------------------------------
+ 
+ Primero procedemos a cambiar el sistema de referencia de coordenadas
+ en EPSG:32717.
+ 
+
+![](uno.png){height=500px}
+
+
+
+Procedemos añadir nuestra capa en formato shape de  ESRI
+
+
+
+![](dos.JPG){height=500px}
+Podemos observar el shape
+
+
+![](tres.JPG){height=500px}
+
+
+Procedemos a ir en capa, en la opción de administrador de fuente de datos
+
+
+![](cuatro.JPG){height=500px}
+
+
+Seleccionamos texto delimitado, para subir nuestro archivo .csv
+
+
+![](cinco.JPG){height=500px}
+
+
+Podemos observar nuestro archi delimitado por puntos
+
+
+![](seis.JPG){height=500px}
+
+
+Observamos en información, como nuestro archivo esta delimitado
+
+![](siete.JPG){height=500px}
+
+
+Exportamos y lo guardamos en fomato shape
+
+
+![](ocho.JPG){height=500px}
+
+![](nueve.JPG){height=500px}
+
+![](diez.JPG){height=500px}
+
+
+Procedemos a ir a caja de herremientas de procesos y en la opción de buscar
+escribimos Puntos a ruta
+
+![](once.JPG){height=500px}
+
+Doble click y sellecionamos el archivo que exportamos
+
+![](trece.JPG){height=500px}
+
+Podemos observar, que se formo una linea que estan sobreto todos los puntos
+
+![](catorce.JPG){height=500px}
+
+
+Cambiamos el formato de lineas a polígono
+
+![](quince.JPG){height=500px}
+
+ejecutamos
+
+
+![](d16.JPG){height=500px}
+
+Procedemos abrir la tabal de atributos y editamos
+
+
+![](17.JPG){height=500px}
+
+Cambiamos un archivo temporal a un shape 
+
+![](18.JPG){height=500px}
+
+Procedemos a editar la tabla de atributos, para luego añadir un nuevo campo, en texto, el cual vamos a ubicar los 3 puntos
+
+
+![](19.JPG){height=500px}
+
+![](20.JPG){height=500px}
+
+![](21.JPG){height=500px}
+
+
+
+![](22.JPG){height=500px}
+
+
+Procedemos a realizar la zona buffer
+
+![](24.JPG){height=500px}
+
+Zona buffer realizada
+
+![](25.JPG){height=500px}
+
+
+
+
+
+
+
 
 
 
