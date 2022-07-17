@@ -1,0 +1,128 @@
+<center>
+
+![](LOGO_OUT.png){height=75px}
+
+
+**Universidad Técnica de Machala**
+
+**Facultad de Ciencias Agropecuarias**
+
+**Carrera de Agronomía**
+
+**Geomática**
+
+
+</center>
+
+1. **Datos Informativos**
+
+    **Docente:** Ing. Agr. Angel Eduardo Luna Romero
+
+    **Semana:** 7
+
+```{r}
+setwd("C:/Users/Eirck/Desktop/diarios/")
+library(pacman)
+p_load(tidyverse, sf, sp, rgdal, raster,glue,RColorBrewer)
+```
+   
+
+sf_representa características simples como registros en una data.frameo 
+tibblecon una columna de lista de geometría
+sp_Este paquete proporciona clases de S4 para importar, manipular 
+y exportar datos espaciales en R
+cargar una imagen
+
+```{r}
+img <- raster("CHIRPS/chira_1981.01.tif")
+plot(img)
+imgs <- list.files("./CHIRPS/", full.names = T, pattern = ".tif$")
+```
+
+
+opcion1
+```{r}
+bsn <- st_read("CUENCAS.shp")
+plot(bsn)
+```
+
+
+
+opcion2
+```{r}
+cnc <- shapefile("CUENCAS.shp")
+plot(cnc)
+```
+
+
+sleccion o filtro de valores de un vector
+```{r}
+obj <- "01.tif"
+obj2 <- grep(obj,imgs, value = T)
+```
+
+Operación con raster
+```{r}
+
+obj3 <- lapply(obj2,FUN =  raster) %>% stack()
+plot(obj3)
+
+```
+
+calcular valor promedio
+```{r}
+prm <- mean(obj3, na.rm=T)
+```
+
+
+
+ Estadistica zonal -------------------------------------------------------
+```{r}
+cnc@data$id <- 1:nrow(cnc@data)
+```
+ 
+ pasar de vectorial shapefile a vectorial
+```{r}
+cnc_r <- raster::rasterize(cnc,prm,field = "id")
+
+```
+ 
+estadistica zonal
+```{r}
+znl <- raster::zonal(prm,cnc_r, fun= mean)
+head(znl)
+```
+
+
+cadena de texto
+```{r}
+aux <- "compañero"
+aux1 <- str_replace(aux, pattern = "ñ" ,  replacement =  "nh")
+head(aux1)
+```
+
+paste0 para pegar texto 
+```{r}
+tbl <- data.frame(meses = month.abb, mes= 1:12)
+mnt <- "01.tif"    
+```
+
+preparar la tabla
+```{r}
+rsl <- znl %>%
+  as_tibble() %>%
+  inner_join(.,cnc@data, by = c("zone" = "id")) %>%  
+  mutate(NOMBRE_CUE = str_replace(NOMBRE_CUE,
+                                  pattern = "�",
+                                  replacement = "i")) %>% 
+  dplyr::select(zona = zone, cuenca = NOMBRE_CUE, PP= value) %>% 
+  mutate(PP = as.numeric(PP) %>%  round(.,digits = 2),
+         mes= str_replace(mnt, pattern = ".tif",
+                          replacement ="" ) %>% as.numeric()) %>% 
+  inner_join(., tbl, by = c("mes")) %>% 
+  dplyr::select(-mes)
+head(rsl)
+```
+
+
+  

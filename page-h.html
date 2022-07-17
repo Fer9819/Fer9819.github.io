@@ -322,7 +322,91 @@ $(document).ready(function () {
 </div>
 
 
-
+<center>
+<p><img src="LOGO_OUT.png" height="75" /></p>
+<p><strong>Universidad Técnica de Machala</strong></p>
+<p><strong>Facultad de Ciencias Agropecuarias</strong></p>
+<p><strong>Carrera de Agronomía</strong></p>
+<p><strong>Geomática</strong></p>
+</center>
+<ol style="list-style-type: decimal">
+<li><p><strong>Datos Informativos</strong></p>
+<p><strong>Docente:</strong> Ing. Agr. Angel Eduardo Luna Romero</p>
+<p><strong>Semana:</strong> 7</p></li>
+</ol>
+<pre class="r"><code>setwd(&quot;C:/Users/Eirck/Desktop/diarios/&quot;)
+library(pacman)</code></pre>
+<pre><code>## Warning: package &#39;pacman&#39; was built under R version 4.1.3</code></pre>
+<pre class="r"><code>p_load(tidyverse, sf, sp, rgdal, raster,glue,RColorBrewer)</code></pre>
+<p>sf_representa características simples como registros en una data.frameo tibblecon una columna de lista de geometría sp_Este paquete proporciona clases de S4 para importar, manipular y exportar datos espaciales en R cargar una imagen</p>
+<pre class="r"><code>img &lt;- raster(&quot;CHIRPS/chira_1981.01.tif&quot;)
+plot(img)</code></pre>
+<p><img src="page-h_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>imgs &lt;- list.files(&quot;./CHIRPS/&quot;, full.names = T, pattern = &quot;.tif$&quot;)</code></pre>
+<p>opcion1</p>
+<pre class="r"><code>bsn &lt;- st_read(&quot;CUENCAS.shp&quot;)</code></pre>
+<pre><code>## Reading layer `CUENCAS&#39; from data source 
+##   `C:\Users\Eirck\Desktop\diarios\Fer9819.github.io\CUENCAS.shp&#39; 
+##   using driver `ESRI Shapefile&#39;
+## Simple feature collection with 3 features and 4 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: -80.45177 ymin: -5.011824 xmax: -77.79864 ymax: -2.001942
+## Geodetic CRS:  WGS 84</code></pre>
+<pre class="r"><code>plot(bsn)</code></pre>
+<p><img src="page-h_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>opcion2</p>
+<pre class="r"><code>cnc &lt;- shapefile(&quot;CUENCAS.shp&quot;)
+plot(cnc)</code></pre>
+<p><img src="page-h_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>sleccion o filtro de valores de un vector</p>
+<pre class="r"><code>obj &lt;- &quot;01.tif&quot;
+obj2 &lt;- grep(obj,imgs, value = T)</code></pre>
+<p>Operación con raster</p>
+<pre class="r"><code>obj3 &lt;- lapply(obj2,FUN =  raster) %&gt;% stack()
+plot(obj3)</code></pre>
+<p><img src="page-h_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>calcular valor promedio</p>
+<pre class="r"><code>prm &lt;- mean(obj3, na.rm=T)</code></pre>
+<p>Estadistica zonal ——————————————————-</p>
+<pre class="r"><code>cnc@data$id &lt;- 1:nrow(cnc@data)</code></pre>
+<p>pasar de vectorial shapefile a vectorial</p>
+<pre class="r"><code>cnc_r &lt;- raster::rasterize(cnc,prm,field = &quot;id&quot;)</code></pre>
+<p>estadistica zonal</p>
+<pre class="r"><code>znl &lt;- raster::zonal(prm,cnc_r, fun= mean)
+head(znl)</code></pre>
+<pre><code>##      zone     value
+## [1,]    1  89.66288
+## [2,]    2 139.17346
+## [3,]    3 167.14002</code></pre>
+<p>cadena de texto</p>
+<pre class="r"><code>aux &lt;- &quot;compañero&quot;
+aux1 &lt;- str_replace(aux, pattern = &quot;ñ&quot; ,  replacement =  &quot;nh&quot;)
+head(aux1)</code></pre>
+<pre><code>## [1] &quot;companhero&quot;</code></pre>
+<p>paste0 para pegar texto</p>
+<pre class="r"><code>tbl &lt;- data.frame(meses = month.abb, mes= 1:12)
+mnt &lt;- &quot;01.tif&quot;    </code></pre>
+<p>preparar la tabla</p>
+<pre class="r"><code>rsl &lt;- znl %&gt;%
+  as_tibble() %&gt;%
+  inner_join(.,cnc@data, by = c(&quot;zone&quot; = &quot;id&quot;)) %&gt;%  
+  mutate(NOMBRE_CUE = str_replace(NOMBRE_CUE,
+                                  pattern = &quot;�&quot;,
+                                  replacement = &quot;i&quot;)) %&gt;% 
+  dplyr::select(zona = zone, cuenca = NOMBRE_CUE, PP= value) %&gt;% 
+  mutate(PP = as.numeric(PP) %&gt;%  round(.,digits = 2),
+         mes= str_replace(mnt, pattern = &quot;.tif&quot;,
+                          replacement =&quot;&quot; ) %&gt;% as.numeric()) %&gt;% 
+  inner_join(., tbl, by = c(&quot;mes&quot;)) %&gt;% 
+  dplyr::select(-mes)
+head(rsl)</code></pre>
+<pre><code>## # A tibble: 3 x 4
+##    zona cuenca               PP meses
+##   &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;
+## 1     1 70 Rï¿½o Chira     89.7 Jan  
+## 2     2 78 Rï¿½o Santiago 139.  Jan  
+## 3     3 79 Rï¿½o Mayo     167.  Jan</code></pre>
 
 
 
