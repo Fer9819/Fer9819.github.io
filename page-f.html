@@ -306,6 +306,42 @@ $(document).ready(function () {
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres 
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="taller2.html">Taller2</a>
+    </li>
+    <li>
+      <a href="taller4.html">Taller4</a>
+    </li>
+    <li>
+      <a href="taller5.html">Taller5</a>
+    </li>
+    <li>
+      <a href="taller6.html">Taller6</a>
+    </li>
+    <li>
+      <a href="IDW.html">Interpolación IDW</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Glosario 
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="primer_hemiciclo.html">Primer Hemiciclo</a>
+    </li>
+  </ul>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -345,7 +381,7 @@ p_load( sf, sp,raster, rgdal, tidyverse, rgeos)</code></pre>
 <pre class="r"><code>mch &lt;- read_csv(&quot;Machala.csv&quot;) %&gt;% 
   as.matrix()</code></pre>
 <pre><code>## Rows: 2847 Columns: 2
-## -- Column specification --------------------------------------------------------------------------------
+## -- Column specification -----------------------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## dbl (2): x, y
 ## 
@@ -383,7 +419,7 @@ mchsf &lt;- st_sf(df, mchsf)</code></pre>
 <pre class="r"><code>mch &lt;- read_csv(&quot;Machala.csv&quot;) %&gt;% 
   as.matrix()</code></pre>
 <pre><code>## Rows: 2847 Columns: 2
-## -- Column specification --------------------------------------------------------------------------------
+## -- Column specification -----------------------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## dbl (2): x, y
 ## 
@@ -392,7 +428,7 @@ mchsf &lt;- st_sf(df, mchsf)</code></pre>
 <pre class="r"><code>pea&lt;- read_csv(&quot;LaPeanha.csv&quot;) %&gt;% 
   as.matrix()</code></pre>
 <pre><code>## Rows: 345 Columns: 2
-## -- Column specification --------------------------------------------------------------------------------
+## -- Column specification -----------------------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## dbl (2): x, y
 ## 
@@ -401,7 +437,7 @@ mchsf &lt;- st_sf(df, mchsf)</code></pre>
 <pre class="r"><code>psj &lt;- read_csv(&quot;Pasaje.csv&quot;) %&gt;% 
   as.matrix()</code></pre>
 <pre><code>## Rows: 1057 Columns: 2
-## -- Column specification --------------------------------------------------------------------------------
+## -- Column specification -----------------------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## dbl (2): x, y
 ## 
@@ -410,7 +446,7 @@ mchsf &lt;- st_sf(df, mchsf)</code></pre>
 <pre class="r"><code>vct&lt;- read_csv(&quot;Victoria.csv&quot;) %&gt;% 
   as.matrix()</code></pre>
 <pre><code>## Rows: 1281 Columns: 2
-## -- Column specification --------------------------------------------------------------------------------
+## -- Column specification -----------------------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## dbl (2): x, $y
 ## 
@@ -431,8 +467,8 @@ df &lt;- data.frame(Provincia =&quot;EL ORO&quot;,Canton = c(&quot;Machala&quot;
                  Parroquia= c(&quot;Machala&quot;,&quot;La Pea?a&quot;, &quot;Pasaje&quot;,&quot;La Victoria&quot;))
 
 mlt &lt;- st_sf(df, mlt)</code></pre>
-<pre><code>## Warning in data.frame(..., check.names = FALSE): row names were found from a short variable and have
-## been discarded</code></pre>
+<pre><code>## Warning in data.frame(..., check.names = FALSE): row names were found from a short variable and have been
+## discarded</code></pre>
 <pre class="r"><code>st_write(mlt, &quot;C:/Users/Eirck/Desktop/diarios/Fer9819.github.iomlt.shp&quot;, delete_layer = T)</code></pre>
 <pre><code>## Deleting layer `Fer9819.github.iomlt&#39; using driver `ESRI Shapefile&#39;
 ## Writing layer `Fer9819.github.iomlt&#39; to data source 
@@ -443,7 +479,7 @@ mlt &lt;- st_sf(df, mlt)</code></pre>
 <h1>Cargar puntos y pasarlos a objeto espacial——————————-</h1>
 <pre class="r"><code>pts &lt;- read_csv(&quot;Puntos.csv&quot;)</code></pre>
 <pre><code>## Rows: 3 Columns: 2
-## -- Column specification --------------------------------------------------------------------------------
+## -- Column specification -----------------------------------------------------------------------------------
 ## Delimiter: &quot;,&quot;
 ## dbl (2): x, y
 ## 

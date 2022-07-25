@@ -75,11 +75,12 @@ prm <- mean(obj3, na.rm=T)
 ```
 
 
-
  Estadistica zonal -------------------------------------------------------
 ```{r}
 cnc@data$id <- 1:nrow(cnc@data)
 ```
+ 
+ 
  
  pasar de vectorial shapefile a vectorial
 ```{r}
@@ -102,12 +103,16 @@ head(aux1)
 ```
 
 paste0 para pegar texto 
+
 ```{r}
 tbl <- data.frame(meses = month.abb, mes= 1:12)
 mnt <- "01.tif"    
 ```
 
+
+
 preparar la tabla
+
 ```{r}
 rsl <- znl %>%
   as_tibble() %>%

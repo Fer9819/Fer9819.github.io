@@ -1,0 +1,184 @@
+<center>
+
+![](LOGO_OUT.png){height=75px}
+
+
+**Universidad Técnica de Machala**
+
+**Facultad de Ciencias Agropecuarias**
+
+**Carrera de Agronomía**
+
+**Geomática**
+
+
+</center>
+
+1. **Datos Informativos**
+
+    **Docente:** Ing. Agr. Angel Eduardo Luna Romero
+
+    **Semana:** 4
+
+```{r}
+setwd("C:/Users/Eirck/Desktop/diarios/")
+library(pacman)
+p_load(tidyverse, sf, sp, raster, rgdal, glue, RColorBrewer)
+```
+
+
+#cargar una imagen(raster)
+```{r}
+img<- raster("CHIRPS/chira_1981.01.tif")
+plot(img)
+```
+
+```{r}
+obj<- paste0("quinto",LETTERS[1:2], rep("alumno",12), 1:12)
+view(obj)
+head(obj)
+class(obj)
+```
+
+#$ nos ayuda cuando lo usemos en otro programa no modifique el mobre del archivo al final
+
+```{r}
+img<- list.files("./CHIRPS/",
+                 full.names = TRUE , pattern = ".tif$") 
+```
+
+```{r}
+prm<- c(img[1], img[13])
+
+```
+
+```{r}
+prm<- lapply(prm, FUN = raster) %>% stack()
+plot(prm)
+```
+                 
+Debido a que el valor NA es un marcador de posición y no un valor numérico real, no se puede incluir en los cálculos. Entonces, de alguna manera debe eliminarse de los cálculos para obtener un valor significativo. Si incluye el valor NA en un cálculo, dará como resultado un valor NA.
+```{r}
+
+prm<- mean(prm, na.rm=T)
+```
+st_readsigue las convenciones de la base R, similar a cómo lee datos tabulares en data.frames. Esto significa que los datos de caracteres se leen, por defecto como factors.
+
+```{r}
+bsn<- st_read("SHP/CUENCAS.shp") #opcion 1 
+plot(bsn)
+#
+class(bsn)
+#
+head(bsn)
+```
+```{r}
+cnc<- shapefile("SHP/CUENCAS.shp") #opcion 2
+plot(cnc)
+head(cnc)
+```
+
+
+
+
+# seccion 2 ---------------------------------------------------------------
+Cambiar simbolo, letra en cualquier palabra
+```{r}
+aux<- "compajero"
+aux1<- str_replace(aux, pattern = "j", replacement ="nh")
+head(aux1)
+```
+
+```{r}
+cnc@data$id<- 1:nrow(cnc@data)
+cnc_r <- raster::rasterize(cnc,prm, field="id")
+plot(cnc_r)
+```
+```{r}
+#Estadistica zonal
+znl<- raster::zonal(prm, cnc_r, fun= mean)
+
+tbl<- data.frame(meses=month.abb, mes=1:12)
+mnt<- "01.tif"
+```
+
+
+
+```{r}
+rsl<- znl %>% 
+  as_tibble() %>%
+  inner_join(., cnc@data, by= c("zone"="id")) %>%
+  mutate(NOMBRE_CUE= str_replace(NOMBRE_CUE,
+                                 pattern = "�",replacement = "i")) %>% 
+  dplyr::select(sistema=NOMBRE_SIS, zona=zone, PP= value) %>% 
+  mutate(PP=as.numeric(PP) %>%  round(., digits = 2),mes=str_replace(mnt, pattern = ".tif", replacement = "") %>% as.numeric()) %>% 
+inner_join(.,tbl, by=c("mes")) %>% 
+  dplyr::select(sistema, zona, meses, PP)
+```
+
+# Funcion para estadistica zonal ------------------------------------------
+
+```{r}
+mipromedio <- function(mnt){
+  print(mnt)
+  mnt <- paste0(mnt, ".tif")
+  fls <- grep(mnt,img, value = T)
+  stk <- stack(fls)
+  avg <- mean(stk, na.rm= T)
+  writeRaster(avg,glue("promedio_{mnt}"), overwrite= T)
+  # rasterizar los shapefile
+  cnc@data$gid<- 1:nrow(cnc@data)
+  lgr <- raster::rasterize(cnc, avg, field = "gid")
+  znl <- raster::zonal(avg,lgr, fun = mean)
+  #Ajuste de la tabla de resultados
+  mnt <- str_replace(mnt, pattern =".tif", replacement = "" )
+  rsl<- znl %>% 
+    as_tibble() %>%
+    inner_join(., cnc@data, by= c("zone"="gid")) %>%
+    mutate(NOMBRE_CUE= str_replace(NOMBRE_CUE,
+                                   pattern = "�",replacement = "i")) %>% 
+    dplyr::select(sistema=NOMBRE_SIS, zona=zone, PP= value) %>% 
+    mutate(PP=as.numeric(PP) %>%  round(., digits = 2),mes= mnt %>% as.numeric()) %>% 
+    
+    inner_join(.,tbl, by=c("mes")) %>% 
+    dplyr::select(sistema, zona, meses, PP)
+  write_csv(rsl, paste0("promedio_",mnt,".csv"))
+  print("fin")
+  return(rsl)
+}  
+```
+
+
+```{r}
+avg <- map(.x =c(paste0("0",1:9), 10:12), .f= mipromedio)
+
+```
+
+
+# Extraer valores de imagen raster ----------------------------------------
+
+```{r}
+rst <- list.files(".", full.names = T, pattern = ".tif$") %>% stack()
+vls <- rasterToPoints(rst,xy=T) %>%
+  as.tibble() %>% 
+  gather(var, valor, -x, -y) %>% 
+  mutate(mes=parse_number(var)) %>% 
+  inner_join(.,tbl, by = c("mes")) %>% 
+  dplyr::select(x,y,meses,valor)
+```
+
+
+
+# Graficar los valores promedios ------------------------------------------
+
+```{r}
+vls$meses <- factor(vls$meses, levels = unique(vls$meses))
+
+ggplot(vls)+
+  geom_tile(aes(x=x,y=y, fill= valor))+
+  facet_wrap(~meses)
+```
+
+
+
+

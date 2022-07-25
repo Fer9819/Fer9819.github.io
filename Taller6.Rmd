@@ -1,0 +1,99 @@
+<center>
+
+![](LOGO_OUT.png){height=75px}
+
+
+**Universidad Técnica de Machala**
+
+**Facultad de Ciencias Agropecuarias**
+
+**Carrera de Agronomía**
+
+**Geomática**
+
+ **Taller 6: Datos espaciales usando R**
+
+</center>
+
+1. **Datos Informativos**
+
+    **Docente:** Ing. Agr. Angel Eduardo Luna Romero
+
+
+
+
+```{r,warning=FALSE, include=FALSE}
+setwd("C:/Users/Eirck/Desktop/diarios/Fer9819.github.io/")
+library(pacman)
+pacman::p_load(sp, sf, raster, tidyverse)
+```
+
+
+```{r}
+dts1 <- read_csv("puntos1.csv")
+head(dts1)
+```
+
+
+
+
+```{r}
+dts <- dts1 #%>% dplyr::select(X = x, Y = y, VAR1 = V1)
+coordinates(dts) <- ~ x + y
+dts
+crs(dts)
+```
+
+
+
+```{r}
+crs(dts) <- '+proj=utm +zone=17 +south + ellps=WGS84 + datum=WGS84 +units=m +no_defs'
+crs(dts)
+```
+
+
+```{r}
+dts2 <- st_as_sf(dts)
+view(dts2)
+```
+
+Guardar un shape
+
+```{r}
+st_write(dts2, 'shapefile3.shp')
+```
+```{r}
+plot(dts1$x,dts1$y)
+
+```
+
+
+
+```{r}
+plot(dts)
+
+```
+
+
+```{r}
+plot(dts,pch= 16)
+
+```
+
+
+```{r}
+plot(dts2)
+
+```
+
+
+```{r}
+head(dts2,1)
+
+```
+
+
+```{r}
+plot(st_geometry(dts2),pch=16)
+```
+

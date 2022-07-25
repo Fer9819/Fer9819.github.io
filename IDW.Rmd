@@ -1,0 +1,236 @@
+<center>
+
+![](LOGO_OUT.png){height=75px}
+
+
+**Universidad Técnica de Machala**
+
+**Facultad de Ciencias Agropecuarias**
+
+**Carrera de Agronomía**
+
+**Geomática**
+
+ **Taller 6: Datos espaciales usando R**
+
+</center>
+
+1. **Datos Informativos**
+
+    **Docente:** Ing. Agr. Angel Eduardo Luna Romero
+
+
+
+
+
+
+
+```{r}
+setwd("C:/Users/Eirck/Desktop/diarios/Fer9819.github.io/")
+
+```
+
+-install.packages("tidyverse")
+
+```{r}
+library(pacman)
+p_load(sf,raster,rgdal,rgeos,wesanderson,sp,mapview,gstat,tidyverse,readxl)
+```
+
+
+
+
+```{r}
+read_excel("IDW_R/DATA.xlsx",sheet = 2)
+ruta <- 'IDW_R/DATA.xlsx'
+```
+
+
+-excel_sheets(ruta)
+
+```{r}
+lts <- lapply(excel_sheets(ruta),read_excel,path= ruta)
+```
+
+-datos finca
+
+```{r}
+fnca <- shapefile("IDW_R/finca.shp")
+plot(fnca)
+```
+
+-uso de la libreria mapview, para inofrmacion en mapa
+
+```{r}
+mapview()
+showMethods("mapview")
+```
+
+
+-Ubicar la finca en mapview
+
+```{r}
+mapview(fnca)
+```
+
+- preparar el espacio o cuariculas, donde se van a poner los valores de la interpolación
+
+```{r}
+ext <- extent(fnca)
+```
+
+-- crear un objeto, para ver los valores grid
+
+--  x <- seq(from = ext[1], to = ext[2], by =10)
+
+```{r}
+grd <- expand.grid(x =seq(from = ext[1], to = ext[2], by =10),
+                   y =seq(from = ext[3], to = ext[4], by =10))
+
+coordinates(grd) <- ~x + y
+crs(grd) <- crs(fnca)  
+plot(grd)  
+gridded(grd) <- TRUE
+```
+
+- preparar toda la infromacion para la interpolación  
+  
+```{r}
+pts <- lts[[1]]  
+coordinates(pts) <- ~ x + y
+crs(pts) <- crs(fnca) 
+#plot(pts)
+
+```
+
+- Interpolación -----------------------------------------------------------
+
+- Primera capa ------------------------------------------------------------
+
+```{r}
+idw.p <- gstat::idw(DA ~1,pts,grd)
+plot(idw.p)
+idw.p <- raster(idw.p)
+#plot(idw.p)
+idw.p <- raster::mask(idw.p,fnca)
+#plot(idw.p)
+```
+
+- Función para oprtimizar  ------------------------------------------------
+
+```{r}
+calc_idw <- function(x){
+  print(x)
+  pts <- lts[[x]] 
+  a <- unique(pts$Profund)
+  coordinates(pts) <- ~ x + y
+  crs(pts) <- crs(fnca) 
+  idw.p <- gstat::idw(DA ~1,pts,grd)
+  idw.p <- raster(idw.p)
+  idw.p <- raster::mask(idw.p,fnca)
+  dir.create("DA")
+  writeRaster(idw.p,paste0("DA/idw_DA",a, ".tif"), overwrite= TRUE)
+}
+
+```
+
+
+```{r}
+ord <- c(1:length(lts))
+rsl <- map(.x= ord, .f= calc_idw)
+ #leer archivos
+fle <- list.files("./DA/", full.names = T, pattern = ".tif$")
+lyr <- stack(fle)
+#plot(lyr)
+```
+
+
+- extraer los valores
+
+```{r}
+tbl <- rasterToPoints(lyr, xy =TRUE) %>% as_tibble() %>% 
+  gather(var, value , -x,-y)
+head(tbl,2)
+unique((tbl$var))
+```
+
+- cambiar nombre de 
+
+```{r}
+tbl$var <- gsub("idw_DA0.10", "0-10",tbl$var)
+tbl$var <- gsub("idw_DA10.20", "10-20",tbl$var)
+tbl$var <- gsub("idw_DA20.30", "20-30",tbl$var)
+tbl$var <- gsub("idw_DA30.40", "30-40",tbl$var)
+unique((tbl$var))
+```
+
+
+
+- ggplot ------------------------------------------------------------------
+- paleta de colores
+
+```{r}
+
+pal <- wes_palette("Zissou1",5,"continuous")
+```
+
+
+- valores
+
+```{r}
+max(tbl$value)
+min(tbl$value)
+```
+
+- pts
+
+```{r}
+pts <- lts[[1]]
+coordinates(pts) <- ~x+y
+crs(pts) <- crs(fnca) 
+```
+
+- ggplot
+
+```{r}
+gg <- ggplot()+
+  geom_raster(data = tbl, mapping = aes(x = x, y = y, fill = value))+
+  facet_wrap(~var)+
+  scale_fill_gradientn(colours = pal, na.value = "white", limits = c(1.2, 1.8),
+                       breaks = seq(1.2, 1.8, by = 0.1))+
+  geom_sf(data = st_as_sf(fnca), fill = NA)+
+  geom_sf(data = st_as_sf(pts), color = "gray50")+
+  theme_bw()+
+  labs(x = "", y = "", fill = bquote("("*g~"cm"^-3*")"))+
+  scale_x_continuous(limits = c(ext[1], ext[2]), breaks = seq(624000, 625209.5, 500))+
+  scale_y_continuous(limits = c(ext[3], ext[4]), breaks = seq(9628000, 9633280, 500))+
+  coord_sf(xlim = extent(fnca)[1:2], ylim = extent(fnca)[3:4], datum = sf::st_crs(32717))+
+  theme(panel.background = element_rect(fill = "white", color = "gray50"),
+        legend.title.align = 0.5,
+        #strip.text = element_blank(),
+        #strip.background = element_blank(),
+        #legend.key.width = unit(5, "line"),
+        #panel.grid.minor = element_blank(),
+        axis.text.y = element_text(angle = 90, hjust = 0.5),
+        legend.position = "right",
+        legend.key.width = unit(1, "line"),
+        legend.key.height = unit(4, "line"))+
+  guides(shape = guide_legend(override.aes = list(size = 10)))
+
+plot(gg)
+```
+
+```{r}
+
+dir.create("mp/")
+```
+
+
+```{r}
+ggsave(plot = gg, filename = "mp/mapa.png", width = 25, height = 15, units = "cm", dpi = 300)
+```
+
+
+
+
+

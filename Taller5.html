@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Taller5.knit</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Geomática</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-spinner fa-pulse fa-3x fa-fw"></span>
+     
+    Portafolio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Primer hemiciclo</li>
+    <li>
+      <a href="page-a.html">Semana 1</a>
+    </li>
+    <li>
+      <a href="page-b.html">Semana 2</a>
+    </li>
+    <li>
+      <a href="page-c.html">Semana 3</a>
+    </li>
+    <li>
+      <a href="page-d.html">Semana 4</a>
+    </li>
+    <li>
+      <a href="page-f.html">Semana 5</a>
+    </li>
+    <li>
+      <a href="page-g.html">Semana 6</a>
+    </li>
+    <li>
+      <a href="page-h.html">Semana 7</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Segundo hemiciclo</li>
+    <li>
+      <a href="page-i.html">Semana 9</a>
+    </li>
+    <li>
+      <a href="page-j.html">Semana 10</a>
+    </li>
+    <li>
+      <a href="page-k.html">Semana 11</a>
+    </li>
+    <li>
+      <a href="page-l.html">Semana 12</a>
+    </li>
+    <li>
+      <a href="page-m.html">Semana 13</a>
+    </li>
+    <li>
+      <a href="page-n.html">Semana 14</a>
+    </li>
+    <li>
+      <a href="page-o.html">Semana 15</a>
+    </li>
+    <li>
+      <a href="page-p.html">Semana 16</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres 
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="taller2.html">Taller2</a>
+    </li>
+    <li>
+      <a href="taller4.html">Taller4</a>
+    </li>
+    <li>
+      <a href="taller5.html">Taller5</a>
+    </li>
+    <li>
+      <a href="taller6.html">Taller6</a>
+    </li>
+    <li>
+      <a href="IDW.html">Interpolación IDW</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Glosario 
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="primer_hemiciclo.html">Primer Hemiciclo</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<center>
+<p><img src="LOGO_OUT.png" height="75" /></p>
+<p><strong>Universidad Técnica de Machala</strong></p>
+<p><strong>Facultad de Ciencias Agropecuarias</strong></p>
+<p><strong>Carrera de Agronomía</strong></p>
+<p><strong>Geomática</strong></p>
+<p><strong>Taller 5: Operaciones espaciales sobre datos vectoriales</strong></p>
+</center>
+<ol style="list-style-type: decimal">
+<li><p><strong>Datos Informativos</strong></p>
+<p><strong>Docente:</strong> Ing. Agr. Angel Eduardo Luna Romero</p>
+<ol style="list-style-type: decimal">
+<li>Con el archivo <strong>Parroquias</strong>, calcular el área de la parroquias del cantón <strong>Pasaje</strong>, en las siguientes unidades: <span class="math inline">\(m^2\)</span>, <span class="math inline">\(km^2\)</span> y <span class="math inline">\(ha\)</span></li>
+</ol></li>
+</ol>
+<pre class="r"><code>library(pacman)
+p_load(sf, raster, sp, rgdal, tidyverse)
+setwd(&#39;C:/Users/Eirck/Desktop/diarios/Fer9819.github.io/&#39;)
+prq &lt;- st_read(&#39;parroquias.shp&#39;)
+names(prq)</code></pre>
+<pre class="r"><code>names(prq)</code></pre>
+<pre><code>## [1] &quot;DPA_PARROQ&quot; &quot;DPA_DESPAR&quot; &quot;DPA_VALOR&quot;  &quot;DPA_ANIO&quot;   &quot;DPA_CANTON&quot; &quot;DPA_DESCAN&quot; &quot;DPA_PROVIN&quot; &quot;DPA_DESPRO&quot;
+## [9] &quot;geometry&quot;</code></pre>
+<pre class="r"><code>sort(unique(prq$DPA_DESPRO)) # ordena los elementos de A-Z</code></pre>
+<pre class="r"><code>el_oro &lt;- prq %&gt;% filter(DPA_DESPRO == &quot;EL ORO&quot; )
+plot(st_geometry(el_oro))</code></pre>
+<p><img src="Taller5_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Pasaje &lt;- el_oro %&gt;% filter(DPA_DESCAN == &quot;PASAJE&quot;) %&gt;% 
+  dplyr::select(Canton = DPA_DESCAN, Parroquias = DPA_DESPAR)
+plot(Pasaje)</code></pre>
+<p><img src="Taller5_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>head(Pasaje)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Canton</th>
+<th align="left">Parroquias</th>
+<th align="left">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">PASAJE</td>
+<td align="left">MULTIPOLYGON (((631477.3 96…</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">BUENAVISTA</td>
+<td align="left">MULTIPOLYGON (((626252.7 96…</td>
+</tr>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">CASACAY</td>
+<td align="left">MULTIPOLYGON (((647122.1 96…</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">LA PEAÑA</td>
+<td align="left">MULTIPOLYGON (((629359.8 96…</td>
+</tr>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">PROGRESO</td>
+<td align="left">MULTIPOLYGON (((654465.2 96…</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">UZHCURRUMI</td>
+<td align="left">MULTIPOLYGON (((647844.6 96…</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Crear un nuevo campo, area_m2 
+Pasaje$area_m2 &lt;- st_area(Pasaje) 
+head(Pasaje)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Canton</th>
+<th align="left">Parroquias</th>
+<th align="left">geometry</th>
+<th align="right">area_m2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">PASAJE</td>
+<td align="left">MULTIPOLYGON (((631477.3 96…</td>
+<td align="right">131794123 [m^2]</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">BUENAVISTA</td>
+<td align="left">MULTIPOLYGON (((626252.7 96…</td>
+<td align="right">40971872 [m^2]</td>
+</tr>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">CASACAY</td>
+<td align="left">MULTIPOLYGON (((647122.1 96…</td>
+<td align="right">60570627 [m^2]</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">LA PEAÑA</td>
+<td align="left">MULTIPOLYGON (((629359.8 96…</td>
+<td align="right">16818866 [m^2]</td>
+</tr>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">PROGRESO</td>
+<td align="left">MULTIPOLYGON (((654465.2 96…</td>
+<td align="right">149762171 [m^2]</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">UZHCURRUMI</td>
+<td align="left">MULTIPOLYGON (((647844.6 96…</td>
+<td align="right">30857629 [m^2]</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Para calcular en km2 se define la unidad con el uso de package units
+Pasaje$area_km2 &lt;- units::set_units(st_area(Pasaje), km^2) 
+head(Pasaje)</code></pre>
+<table>
+<colgroup>
+<col width="8%" />
+<col width="13%" />
+<col width="37%" />
+<col width="19%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Canton</th>
+<th align="left">Parroquias</th>
+<th align="left">geometry</th>
+<th align="right">area_m2</th>
+<th align="right">area_km2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">PASAJE</td>
+<td align="left">MULTIPOLYGON (((631477.3 96…</td>
+<td align="right">131794123 [m^2]</td>
+<td align="right">131.79412 [km^2]</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">BUENAVISTA</td>
+<td align="left">MULTIPOLYGON (((626252.7 96…</td>
+<td align="right">40971872 [m^2]</td>
+<td align="right">40.97187 [km^2]</td>
+</tr>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">CASACAY</td>
+<td align="left">MULTIPOLYGON (((647122.1 96…</td>
+<td align="right">60570627 [m^2]</td>
+<td align="right">60.57063 [km^2]</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">LA PEAÑA</td>
+<td align="left">MULTIPOLYGON (((629359.8 96…</td>
+<td align="right">16818866 [m^2]</td>
+<td align="right">16.81887 [km^2]</td>
+</tr>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">PROGRESO</td>
+<td align="left">MULTIPOLYGON (((654465.2 96…</td>
+<td align="right">149762171 [m^2]</td>
+<td align="right">149.76217 [km^2]</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">UZHCURRUMI</td>
+<td align="left">MULTIPOLYGON (((647844.6 96…</td>
+<td align="right">30857629 [m^2]</td>
+<td align="right">30.85763 [km^2]</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>Pasaje$area_ha &lt;- units::set_units(st_area(Pasaje), ha) 
+head(Pasaje)</code></pre>
+<table style="width:100%;">
+<colgroup>
+<col width="7%" />
+<col width="11%" />
+<col width="31%" />
+<col width="16%" />
+<col width="17%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Canton</th>
+<th align="left">Parroquias</th>
+<th align="left">geometry</th>
+<th align="right">area_m2</th>
+<th align="right">area_km2</th>
+<th align="right">area_ha</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">PASAJE</td>
+<td align="left">MULTIPOLYGON (((631477.3 96…</td>
+<td align="right">131794123 [m^2]</td>
+<td align="right">131.79412 [km^2]</td>
+<td align="right">13179.412 [ha]</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">BUENAVISTA</td>
+<td align="left">MULTIPOLYGON (((626252.7 96…</td>
+<td align="right">40971872 [m^2]</td>
+<td align="right">40.97187 [km^2]</td>
+<td align="right">4097.187 [ha]</td>
+</tr>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">CASACAY</td>
+<td align="left">MULTIPOLYGON (((647122.1 96…</td>
+<td align="right">60570627 [m^2]</td>
+<td align="right">60.57063 [km^2]</td>
+<td align="right">6057.063 [ha]</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">LA PEAÑA</td>
+<td align="left">MULTIPOLYGON (((629359.8 96…</td>
+<td align="right">16818866 [m^2]</td>
+<td align="right">16.81887 [km^2]</td>
+<td align="right">1681.887 [ha]</td>
+</tr>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="left">PROGRESO</td>
+<td align="left">MULTIPOLYGON (((654465.2 96…</td>
+<td align="right">149762171 [m^2]</td>
+<td align="right">149.76217 [km^2]</td>
+<td align="right">14976.217 [ha]</td>
+</tr>
+<tr class="even">
+<td align="left">PASAJE</td>
+<td align="left">UZHCURRUMI</td>
+<td align="left">MULTIPOLYGON (((647844.6 96…</td>
+<td align="right">30857629 [m^2]</td>
+<td align="right">30.85763 [km^2]</td>
+<td align="right">3085.763 [ha]</td>
+</tr>
+</tbody>
+</table>
+<ol start="2" style="list-style-type: decimal">
+<li>Determinar los centroides de las parroquias del literal anterior con sus respectivas coordenadas y generar un <strong>buffer</strong> de <strong>2000 m</strong>. Luego crear un buffer de <strong>2000</strong>, <strong>2500</strong>, <strong>3000</strong> y <strong>3500</strong> metros, respectivamente.</li>
+</ol>
+<pre class="r"><code>pts_c &lt;- st_centroid(Pasaje %&gt;% dplyr::select(Parroquias))
+# Con st_coordinates() se determina las coordenadas de &quot;x&quot; &amp; &quot;y&quot; al mismo tiempo
+# por eso se usa los corchetes [,] para indicar la información 1 es para &quot;x&quot;, 2 para &quot;y&quot;
+pts_c$x &lt;- st_coordinates(pts_c)[,1]
+pts_c$y &lt;- st_coordinates(pts_c)[,2]
+# Ordenar las columnas
+pts_c &lt;- pts_c %&gt;% dplyr::select(Parroquias, x, y)
+head(pts_c)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Parroquias</th>
+<th align="right">x</th>
+<th align="right">y</th>
+<th align="left">geometry</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">PASAJE</td>
+<td align="right">636807.5</td>
+<td align="right">9625828</td>
+<td align="left">POINT (636807.5 9625828)</td>
+</tr>
+<tr class="even">
+<td align="left">BUENAVISTA</td>
+<td align="right">629480.6</td>
+<td align="right">9627470</td>
+<td align="left">POINT (629480.6 9627470)</td>
+</tr>
+<tr class="odd">
+<td align="left">CASACAY</td>
+<td align="right">643272.4</td>
+<td align="right">9629754</td>
+<td align="left">POINT (643272.4 9629754)</td>
+</tr>
+<tr class="even">
+<td align="left">LA PEAÑA</td>
+<td align="right">627666.2</td>
+<td align="right">9633969</td>
+<td align="left">POINT (627666.2 9633969)</td>
+</tr>
+<tr class="odd">
+<td align="left">PROGRESO</td>
+<td align="right">645690.0</td>
+<td align="right">9638940</td>
+<td align="left">POINT (645690 9638940)</td>
+</tr>
+<tr class="even">
+<td align="left">UZHCURRUMI</td>
+<td align="right">655654.0</td>
+<td align="right">9629515</td>
+<td align="left">POINT (655654 9629515)</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code>pts_bf &lt;- st_buffer(pts_c, dist = 2000)
+plot(st_geometry(pts_bf), col = &quot;blue&quot;)
+plot(st_geometry(pts_c), add = T)</code></pre>
+<p><img src="Taller5_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code># Crear buffer de 2000, 2500, 3000, 3500
+pts_bf &lt;- st_buffer(pts_c, dist = c(2000, 2500, 3000, 3500))
+plot(st_geometry(pts_bf), col = &quot;yellow&quot;)
+plot(st_geometry(pts_c), add = T)</code></pre>
+<p><img src="Taller5_files/figure-html/unnamed-chunk-11-2.png" width="672" /></p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

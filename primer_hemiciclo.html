@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>primer_hemiciclo.knit</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Geomática</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-spinner fa-pulse fa-3x fa-fw"></span>
+     
+    Portafolio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Primer hemiciclo</li>
+    <li>
+      <a href="page-a.html">Semana 1</a>
+    </li>
+    <li>
+      <a href="page-b.html">Semana 2</a>
+    </li>
+    <li>
+      <a href="page-c.html">Semana 3</a>
+    </li>
+    <li>
+      <a href="page-d.html">Semana 4</a>
+    </li>
+    <li>
+      <a href="page-f.html">Semana 5</a>
+    </li>
+    <li>
+      <a href="page-g.html">Semana 6</a>
+    </li>
+    <li>
+      <a href="page-h.html">Semana 7</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Segundo hemiciclo</li>
+    <li>
+      <a href="page-i.html">Semana 9</a>
+    </li>
+    <li>
+      <a href="page-j.html">Semana 10</a>
+    </li>
+    <li>
+      <a href="page-k.html">Semana 11</a>
+    </li>
+    <li>
+      <a href="page-l.html">Semana 12</a>
+    </li>
+    <li>
+      <a href="page-m.html">Semana 13</a>
+    </li>
+    <li>
+      <a href="page-n.html">Semana 14</a>
+    </li>
+    <li>
+      <a href="page-o.html">Semana 15</a>
+    </li>
+    <li>
+      <a href="page-p.html">Semana 16</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres 
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="taller2.html">Taller2</a>
+    </li>
+    <li>
+      <a href="taller4.html">Taller4</a>
+    </li>
+    <li>
+      <a href="taller5.html">Taller5</a>
+    </li>
+    <li>
+      <a href="taller6.html">Taller6</a>
+    </li>
+    <li>
+      <a href="IDW.html">Interpolación IDW</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Glosario 
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="primer_hemiciclo.html">Primer Hemiciclo</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<center>
+<p><img src="LOGO_OUT.png" height="75" /></p>
+<p><strong>Universidad Técnica de Machala</strong></p>
+<p><strong>Facultad de Ciencias Agropecuarias</strong></p>
+<p><strong>Carrera de Agronomía</strong></p>
+<p><strong>Geomática</strong></p>
+<p><strong>Glosario Primer hemiciclo</strong></p>
+</center>
+<ol style="list-style-type: decimal">
+<li><p><strong>Datos Informativos</strong></p>
+<p><strong>Docente:</strong> Ing. Agr. Angel Eduardo Luna Romero</p></li>
+</ol>
+<p><strong>ESRI</strong></p>
+<p>En 1969, cofundaron Esri, conocido entonces como Environmental Systems Research Institute, Inc. (ESRI), en su ciudad natal de Redlands, California,Esri se centró inicialmente en realizar estudios ambientales para proyectos de ordenamiento territorial, algunas de las primeras herramientas para la digitalización de mapas, la creación de mapas por computadora y el análisis espacial, así como el primer sistema comercial de información geográfica (GIS). La innovación continua, la inversión en investigación y desarrollo y una filosofía genuinamente centrada en el cliente ayudaron a Esri a convertirse en el líder mundial en software GIS, ahora una herramienta esencial en los sectores privado y público . Fuente(<a href="https://www.esri.com/en-us/about/about-esri/company" class="uri">https://www.esri.com/en-us/about/about-esri/company</a>)</p>
+<p><strong>EPSG</strong></p>
+<p>EPSG.io ( <a href="http://epsg.io/" class="uri">http://epsg.io/</a> ) simplifica el descubrimiento de sistemas de referencia de coordenadas utilizados en todo el mundo para crear mapas y datos geográficos y para identificar la posición geográfica. Es una herramienta práctica para cualquier persona interesada en la cartografía y la elaboración de mapas digitales, que necesite conocer los valores exactos de latitud y longitud de las coordenadas numéricas en diferentes sistemas de referencia espacial. La aplicación de mapas incluida permite mostrar la ubicación precisa en cualquier parte del planeta Fuente(<a href="https://epsg.io/about" class="uri">https://epsg.io/about</a>)</p>
+<p><img src="32717.JPG" height="500" /> Fuente(<a href="http://epsg.io/" class="uri">http://epsg.io/</a>)</p>
+<p><img src="32.JPG" height="200" /></p>
+<p>Fuente(<a href="http://epsg.io/" class="uri">http://epsg.io/</a>)</p>
+<p><img src="32718.JPG" height="500" /></p>
+<p>Fuente(<a href="http://epsg.io/" class="uri">http://epsg.io/</a>)</p>
+<p><img src="3218.JPG" height="200" /></p>
+<p>Fuente(<a href="http://epsg.io/" class="uri">http://epsg.io/</a>)</p>
+<p><img src="4326.JPG" height="500" /></p>
+<p>Fuente(<a href="http://epsg.io/" class="uri">http://epsg.io/</a>)</p>
+<p><strong>Shapefile</strong></p>
+<p>Un shapefile es un formato sencillo y no topológico que se utiliza para almacenar la ubicación geométrica y la información de atributos de las entidades geográficas. Las entidades geográficas de un shapefile se pueden representar por medio de puntos, líneas o polígonos (áreas). El espacio de trabajo que contiene shapefiles también puede contener tablas dBASE que, a su vez, pueden almacenar atributos adicionales que se pueden unir a las entidades de un shapefile.</p>
+<p>Fuente(<a href="https://desktop.arcgis.com/es/arcmap/latest/manage-data/shapefiles/what-is-a-shapefile.htm" class="uri">https://desktop.arcgis.com/es/arcmap/latest/manage-data/shapefiles/what-is-a-shapefile.htm</a>)</p>
+<p><strong>Raster</strong></p>
+<p>En su forma más simple, un ráster consta de una matriz de celdas (o píxeles) organizadas en filas y columnas (o una cuadrícula) en la que cada celda contiene un valor que representa información, como la temperatura. Los rásteres son fotografías aéreas digitales, imágenes de satélite, imágenes digitales o incluso mapas escaneados.</p>
+<p>Las ventajas de almacenar los datos en forma de ráster son las siguientes:</p>
+<p>Estructura de datos simple: matriz de celdas con valores que representan una coordenada y que, en ocasiones, se encuentra vinculada a una tabla de atributos</p>
+<p>-Formato potente para análisis espacial y estadístico avanzado -Capacidad de representar superficies continuas y llevar a cabo análisis de superficie -Capacidad de almacenar puntos, líneas, polígonos y superficies de manera uniforme -Capacidad de llevar a cabo superposiciones rápidas con datasets complejos</p>
+<p>Existen otras consideraciones para almacenar los datos en forma de ráster que podrían convencerle para que utilice una opción de almacenamiento basada en vectores. Por ejemplo:</p>
+<p>-podrían producirse imprecisiones espaciales debido a los límites impuestos por las dimensiones de celda del dataset ráster. -Los datasets ráster son potencialmente de gran tamaño. La resolución aumenta a medida que disminuye el tamaño de la celda. Sin embargo, el coste también aumenta en el espacio en disco y en las velocidades de procesamiento. Para un área determinada, el cambio de celdas a la mitad del tamaño actual requerirá cuatro veces más espacio de almacenamiento, dependiendo del tipo de datos y las técnicas de almacenamiento utilizadas.</p>
+<p>FUENTE(<a href="https://desktop.arcgis.com/es/arcmap/latest/manage-data/raster-and-images/what-is-raster-data.htm" class="uri">https://desktop.arcgis.com/es/arcmap/latest/manage-data/raster-and-images/what-is-raster-data.htm</a>)</p>
+<p><strong>sp</strong></p>
+<p>El paquete sp proporciona clases y métodos para manejar datos espaciales en R.Las estructuras de datos espaciales implementadas incluyen puntos, líneas, polígonos y rejillas; cada uno de ellos con o sin datos de atributos. hemos optado por use el estilo de clases y métodos de S4 (Chambers, 1998) para permitir la validación de los objetos creados. Aunque nuestro principal objetivo es utilizar datos espaciales en el ámbito geográfico (bidimensional), las estructuras de datos que tienen una implementación sencilla en dimensiones superiores (puntos, cuadrículas) sí lo permiten.</p>
+<p>Fuente(<a href="https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf" class="uri">https://cran.r-project.org/web/packages/sp/vignettes/intro_sp.pdf</a>)</p>
+<p><strong>sf</strong></p>
+<p>Compatibilidad con funciones simples, una forma estandarizada de codificar datos vectoriales espaciales. Se une a ‘GDAL’ para lectura y escritura datos, a ‘GEOS’ para operaciones geométricas y a ‘PROJ’ para conversiones de proyección y transformaciones de datum. Utiliza por defecto el ‘s2’ paquete para operaciones de geometría esférica en coordenadas elipsoidales (largo/largo).</p>
+<p>Fuente(<a href="https://cran.r-project.org/web/packages/sf/sf.pdf" class="uri">https://cran.r-project.org/web/packages/sf/sf.pdf</a>)</p>
+<p><strong>%&gt;%</strong></p>
+<p>El operador pipeline %&gt;% es útil para concatenar múltiples dplyr operaciones.</p>
+<p>Ctrl + SHIFT + M</p>
+<p>Fuente(<a href="https://rsanchezs.gitbooks.io/rprogramming/content/chapter9/pipeline.html" class="uri">https://rsanchezs.gitbooks.io/rprogramming/content/chapter9/pipeline.html</a>)</p>
+<p><strong>select</strong></p>
+<p>La función se utiliza para seleccionar columnas específicas dentro de sus datos y guardarlas como un nuevo marco de datos. Puede usar esto si tiene un conjunto de datos grande y solo desea usar algunas de las columnas, para mantenerlo simple y ordenado. O bien, es posible que desee tomar una columna o dos de varios conjuntos de datos diferentes y combinarlos.</p>
+<p>Fuente(<a href="https://www.staringatr.com/1-data-exploration-and-manipulation/manipulating-data/4_select/" class="uri">https://www.staringatr.com/1-data-exploration-and-manipulation/manipulating-data/4_select/</a>)</p>
+<p><strong>mutate</strong></p>
+<p>Una de las manipulaciones de datos más comunes es agregar una nueva columna a su conjunto de datos. Esto es excelente para transformar datos y, al mismo tiempo, mantener el original. Esto podría usarse para combinar múltiples columnas en una sola o realizar cálculos matemáticos que involucren múltiples columnas con los resultados en una columna separada.</p>
+<p>Fuente(<a href="https://www.staringatr.com/1-data-exploration-and-manipulation/manipulating-data/2_mutate/" class="uri">https://www.staringatr.com/1-data-exploration-and-manipulation/manipulating-data/2_mutate/</a>)</p>
+<p><strong>remove</strong></p>
+<p>El comando remove() elimina objetos del entorno R, específicamente en nuestra ventana de environment.</p>
+<p>Fuente(<a href="https://www.staringatr.com/1-data-exploration-and-manipulation/manipulating-data/6_remove/" class="uri">https://www.staringatr.com/1-data-exploration-and-manipulation/manipulating-data/6_remove/</a>)</p>
+<p><strong>na.rm</strong></p>
+<p>Cuando se usa una función de marco de datos, na.rm en r se refiere al parámetro lógico que le dice a la función si eliminar o no los valores de NA(datos faltantes) del cálculo.</p>
+<p>Fuente(<a href="https://www.programmingr.com/tutorial/na-rm/" class="uri">https://www.programmingr.com/tutorial/na-rm/</a>)</p>
+<p><strong>IDW</strong></p>
+<p>La interpolación mediante distancia inversa ponderada determina los valores de celda a través de una combinación ponderada linealmente de un conjunto de puntos de muestra. La ponderación es una función de la distancia inversa. La superficie que se interpola debe ser la de una variable dependiente de la ubicación.</p>
+<p>Fuente(<a href="https://pro.arcgis.com/es/pro-app/2.8/tool-reference/spatial-analyst/how-idw-works.htm" class="uri">https://pro.arcgis.com/es/pro-app/2.8/tool-reference/spatial-analyst/how-idw-works.htm</a>)</p>
+<p><img src="idw.JPG" height="300" /></p>
+<p>Fuente(<a href="https://pro.arcgis.com/es/pro-app/2.8/tool-reference/spatial-analyst/how-idw-works.htm" class="uri">https://pro.arcgis.com/es/pro-app/2.8/tool-reference/spatial-analyst/how-idw-works.htm</a>)</p>
+<p>El método IDW está basado principalmente en la inversa de la distancia elevada a una potencia matemática. El parámetro Potencia permite controlar el significado de puntos conocidos en los valores interpolados, en función de su distancia respecto del punto de salida. Es un número real positivo y su valor predeterminado es 2.</p>
+<p>Al definir un valor de potencia más alto, se puede poner más énfasis en los puntos más cercanos. Entonces, los datos cercanos tendrán más influencia y la superficie tendrá más detalles (será menos suave). A medida que aumenta la potencia, los valores interpolados comienzan a acercarse al valor del punto de muestra más cercano. Al especificar un valor más bajo de potencia, los puntos circundantes adquirirán más influencia que los que están más lejos, lo que resulta en una superficie más suave.</p>
+<p><strong>Kriging</strong></p>
+<p>Kriging es un procedimiento geoestadístico avanzado que genera una superficie estimada a partir de un conjunto de puntos dispersados con valores z. A diferencia de otros métodos de interpolación del conjunto de herramientas Interpolación, utilizar la herramienta Kriging de forma efectiva implica una investigación interactiva del comportamiento espacial del fenómeno representado por los valores z antes de seleccionar el mejor método de estimación para generar la superficie de salida,Kriging es un proceso que tiene varios pasos, entre los que se incluyen, el análisis estadístico exploratorio de los datos, el modelado de variogramas, la creación de la superficie y (opcionalmente) la exploración de la superficie de varianza.</p>
+<p>Fuente(<a href="https://pro.arcgis.com/es/pro-app/2.8/tool-reference/spatial-analyst/how-kriging-works.htm" class="uri">https://pro.arcgis.com/es/pro-app/2.8/tool-reference/spatial-analyst/how-kriging-works.htm</a>)</p>
+<p><strong>spline</strong></p>
+<p>La herramienta Spline utiliza un método de interpolación que estima valores usando una función matemática que minimiza la curvatura general de la superficie, lo que resulta en una superficie suave que pasa exactamente por los puntos de entrada.</p>
+<p>Fuente(<a href="https://pro.arcgis.com/es/pro-app/2.8/tool-reference/spatial-analyst/how-spline-works.htm" class="uri">https://pro.arcgis.com/es/pro-app/2.8/tool-reference/spatial-analyst/how-spline-works.htm</a>)</p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

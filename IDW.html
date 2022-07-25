@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>IDW.knit</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cerulean.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<script src="site_libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="site_libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<script src="site_libs/clipboard-0.0.1/setClipboardText.js"></script>
+<link href="site_libs/HomeButton-0.0.1/home-button.css" rel="stylesheet" />
+<script src="site_libs/HomeButton-0.0.1/home-button.js"></script>
+<script src="site_libs/HomeButton-0.0.1/easy-button-src.min.js"></script>
+<link href="site_libs/mapviewCSS-0.0.1/mapview-popup.css" rel="stylesheet" />
+<link href="site_libs/mapviewCSS-0.0.1/mapview.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Geomática</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="fa fa-spinner fa-pulse fa-3x fa-fw"></span>
+     
+    Portafolio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Primer hemiciclo</li>
+    <li>
+      <a href="page-a.html">Semana 1</a>
+    </li>
+    <li>
+      <a href="page-b.html">Semana 2</a>
+    </li>
+    <li>
+      <a href="page-c.html">Semana 3</a>
+    </li>
+    <li>
+      <a href="page-d.html">Semana 4</a>
+    </li>
+    <li>
+      <a href="page-f.html">Semana 5</a>
+    </li>
+    <li>
+      <a href="page-g.html">Semana 6</a>
+    </li>
+    <li>
+      <a href="page-h.html">Semana 7</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Segundo hemiciclo</li>
+    <li>
+      <a href="page-i.html">Semana 9</a>
+    </li>
+    <li>
+      <a href="page-j.html">Semana 10</a>
+    </li>
+    <li>
+      <a href="page-k.html">Semana 11</a>
+    </li>
+    <li>
+      <a href="page-l.html">Semana 12</a>
+    </li>
+    <li>
+      <a href="page-m.html">Semana 13</a>
+    </li>
+    <li>
+      <a href="page-n.html">Semana 14</a>
+    </li>
+    <li>
+      <a href="page-o.html">Semana 15</a>
+    </li>
+    <li>
+      <a href="page-p.html">Semana 16</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Talleres 
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="taller2.html">Taller2</a>
+    </li>
+    <li>
+      <a href="taller4.html">Taller4</a>
+    </li>
+    <li>
+      <a href="taller5.html">Taller5</a>
+    </li>
+    <li>
+      <a href="taller6.html">Taller6</a>
+    </li>
+    <li>
+      <a href="IDW.html">Interpolación IDW</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Glosario 
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="primer_hemiciclo.html">Primer Hemiciclo</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<center>
+<p><img src="LOGO_OUT.png" height="75" /></p>
+<p><strong>Universidad Técnica de Machala</strong></p>
+<p><strong>Facultad de Ciencias Agropecuarias</strong></p>
+<p><strong>Carrera de Agronomía</strong></p>
+<p><strong>Geomática</strong></p>
+<p><strong>Taller 6: Datos espaciales usando R</strong></p>
+</center>
+<ol style="list-style-type: decimal">
+<li><p><strong>Datos Informativos</strong></p>
+<p><strong>Docente:</strong> Ing. Agr. Angel Eduardo Luna Romero</p></li>
+</ol>
+<pre class="r"><code>setwd(&quot;C:/Users/Eirck/Desktop/diarios/Fer9819.github.io/&quot;)</code></pre>
+<p>-install.packages(“tidyverse”)</p>
+<pre class="r"><code>library(pacman)</code></pre>
+<pre><code>## Warning: package &#39;pacman&#39; was built under R version 4.1.3</code></pre>
+<pre class="r"><code>p_load(sf,raster,rgdal,rgeos,wesanderson,sp,mapview,gstat,tidyverse,readxl)</code></pre>
+<pre class="r"><code>read_excel(&quot;IDW_R/DATA.xlsx&quot;,sheet = 2)</code></pre>
+<pre><code>## # A tibble: 15 x 9
+##          x        y Arcilla  Limo Arena    DR    DA Porosidad Profund
+##      &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;  
+##  1 623716. 9628431.      12    14    74  1.96  1.56      20.3 10-20  
+##  2 624070. 9628802.      10    12    78  2.53  1.72      32.0 10-20  
+##  3 624458. 9628788.      12    32    56  2     1.68      15.8 10-20  
+##  4 623713. 9627981.       5    53    42  1.92  1.47      23.7 10-20  
+##  5 624011. 9627823.      20    46    34  1.96  1.68      14.6 10-20  
+##  6 624361. 9627662.       4    30    66  2.08  1.60      23.3 10-20  
+##  7 625041. 9627683.       0    24    76  2.22  1.56      29.4 10-20  
+##  8 624835. 9627978.      10    22    68  2.17  1.62      25.6 10-20  
+##  9 624629. 9628366.      10    30    60  2.38  1.68      29.3 10-20  
+## 10 624307. 9628493.       6    18    76  3.85  1.50      60.9 10-20  
+## 11 623994. 9628349.       0    66    34  1.79  1.30      27.1 10-20  
+## 12 624186. 9628057.       8    12    80  2.17  1.42      34.4 10-20  
+## 13 624585. 9627844.       6    40    54  2.04  1.57      22.8 10-20  
+## 14 624495. 9628239.      14    30    56  2     1.53      23.6 10-20  
+## 15 623569. 9628136.      28    38    34  1.89  1.37      27.4 10-20</code></pre>
+<pre class="r"><code>ruta &lt;- &#39;IDW_R/DATA.xlsx&#39;</code></pre>
+<p>-excel_sheets(ruta)</p>
+<pre class="r"><code>lts &lt;- lapply(excel_sheets(ruta),read_excel,path= ruta)</code></pre>
+<p>-datos finca</p>
+<pre class="r"><code>fnca &lt;- shapefile(&quot;IDW_R/finca.shp&quot;)</code></pre>
+<pre><code>## Warning in rgdal::readOGR(dirname(x), fn, stringsAsFactors = stringsAsFactors, :
+## Dropping null geometries: 1</code></pre>
+<pre class="r"><code>plot(fnca)</code></pre>
+<p><img src="IDW_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>-uso de la libreria mapview, para inofrmacion en mapa</p>
+<pre class="r"><code>mapview()</code></pre>
+<div id="htmlwidget-98fc3fbebd7683c165dc" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-98fc3fbebd7683c165dc">{"x":{"options":{"minZoom":1,"maxZoom":52,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"preferCanvas":false,"bounceAtZoomLimits":false,"maxBounds":[[[-90,-370]],[[90,370]]]},"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron","CartoDB.Positron","CartoDB.Positron",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["CartoDB.DarkMatter","CartoDB.DarkMatter","CartoDB.DarkMatter",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["OpenStreetMap","OpenStreetMap","OpenStreetMap",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery","Esri.WorldImagery","Esri.WorldImagery",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["OpenTopoMap","OpenTopoMap","OpenTopoMap",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addLayersControl","args":[["CartoDB.Positron","CartoDB.DarkMatter","OpenStreetMap","Esri.WorldImagery","OpenTopoMap"],[],{"collapsed":true,"autoZIndex":true,"position":"topleft"}]},{"method":"addScaleBar","args":[{"maxWidth":100,"metric":true,"imperial":true,"updateWhenIdle":true,"position":"bottomleft"}]}],"setView":[[50.814772,8.770862],18,[]]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n      function(el, x, data) {\n      // get the leaflet map\n      var map = this; //HTMLWidgets.find('#' + el.id);\n      // we need a new div element because we have to handle\n      // the mouseover output separately\n      // debugger;\n      function addElement () {\n      // generate new div Element\n      var newDiv = $(document.createElement('div'));\n      // append at end of leaflet htmlwidget container\n      $(el).append(newDiv);\n      //provide ID and style\n      newDiv.addClass('lnlt');\n      newDiv.css({\n      'position': 'relative',\n      'bottomleft':  '0px',\n      'background-color': 'rgba(255, 255, 255, 0.7)',\n      'box-shadow': '0 0 2px #bbb',\n      'background-clip': 'padding-box',\n      'margin': '0',\n      'padding-left': '5px',\n      'color': '#333',\n      'font': '9px/1.5 \"Helvetica Neue\", Arial, Helvetica, sans-serif',\n      'z-index': '700',\n      });\n      return newDiv;\n      }\n\n\n      // check for already existing lnlt class to not duplicate\n      var lnlt = $(el).find('.lnlt');\n\n      if(!lnlt.length) {\n      lnlt = addElement();\n\n      // grab the special div we generated in the beginning\n      // and put the mousmove output there\n\n      map.on('mousemove', function (e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                           ' lon: ' + (e.latlng.lng).toFixed(5) +\n                           ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                           ' | zoom: ' + map.getZoom() +\n                           ' | x: ' + L.CRS.EPSG3857.project(e.latlng).x.toFixed(0) +\n                           ' | y: ' + L.CRS.EPSG3857.project(e.latlng).y.toFixed(0) +\n                           ' | epsg: 3857 ' +\n                           ' | proj4: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs ');\n      } else {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      }\n      });\n\n      // remove the lnlt div when mouse leaves map\n      map.on('mouseout', function (e) {\n      var strip = document.querySelector('.lnlt');\n      if( strip !==null) strip.remove();\n      });\n\n      };\n\n      //$(el).keypress(67, function(e) {\n      map.on('preclick', function(e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      var txt = document.querySelector('.lnlt').textContent;\n      console.log(txt);\n      //txt.innerText.focus();\n      //txt.select();\n      setClipboardText('\"' + txt + '\"');\n      }\n      });\n\n      }\n      ).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el,x,data){\n           var map = this;\n\n           map.on('keypress', function(e) {\n               console.log(e.originalEvent.code);\n               var key = e.originalEvent.code;\n               if (key === 'KeyE') {\n                   var bb = this.getBounds();\n                   var txt = JSON.stringify(bb);\n                   console.log(txt);\n\n                   setClipboardText('\\'' + txt + '\\'');\n               }\n           })\n        }).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+<pre class="r"><code>showMethods(&quot;mapview&quot;)</code></pre>
+<pre><code>## Function: mapview (package mapview)
+## ...=&quot;ANY&quot;</code></pre>
+<p>-Ubicar la finca en mapview</p>
+<pre class="r"><code>mapview(fnca)</code></pre>
+<div id="htmlwidget-bf6716b7618dc830af69" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bf6716b7618dc830af69">{"x":{"options":{"minZoom":1,"maxZoom":52,"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"preferCanvas":false,"bounceAtZoomLimits":false,"maxBounds":[[[-90,-370]],[[90,370]]]},"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron","CartoDB.Positron","CartoDB.Positron",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["CartoDB.DarkMatter","CartoDB.DarkMatter","CartoDB.DarkMatter",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["OpenStreetMap","OpenStreetMap","OpenStreetMap",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery","Esri.WorldImagery","Esri.WorldImagery",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"addProviderTiles","args":["OpenTopoMap","OpenTopoMap","OpenTopoMap",{"errorTileUrl":"","noWrap":false,"detectRetina":false,"pane":"tilePane"}]},{"method":"createMapPane","args":["polygon",420]},{"method":"addPolygons","args":[[[[{"lng":[-79.878463815388,-79.8784643757942,-79.87894718149,-79.8799664595154,-79.8800098254356,-79.8798588504608,-79.8799116295595,-79.8809736747001,-79.8816587636282,-79.8815600062513,-79.8819923070987,-79.8820174064632,-79.882050063809,-79.8823976901568,-79.8824501837811,-79.8824253745324,-79.8834324407124,-79.8845205064386,-79.8856732853634,-79.8859076758319,-79.8871045932518,-79.8877802143224,-79.8881947158205,-79.8880963567406,-79.8880861456959,-79.8880686434259,-79.8880528412129,-79.8880360843307,-79.8880226692689,-79.8880090069716,-79.888005935021,-79.8879668348233,-79.887948178721,-79.8878743433271,-79.8878026268124,-79.8877938723763,-79.8876954005644,-79.8876711900455,-79.8876711619296,-79.8876071178632,-79.8873618124705,-79.8870788534195,-79.8866831137459,-79.8864091288815,-79.8861422934809,-79.8856435272599,-79.8855040702257,-79.8848802387444,-79.8842681785975,-79.8836630622158,-79.8822265054667,-79.8816246477814,-79.8811252233009,-79.8799692199419,-79.8795108773248,-79.8794097144911,-79.8792729929939,-79.8791807530883,-79.879065151423,-79.8787879292953,-79.8785334778158,-79.8785334636782,-79.8788433553976,-79.8790448195552,-79.8790238489639,-79.8793349094959,-79.8792416396642,-79.879228813404,-79.8789097607424,-79.8787380675778,-79.8783459289057,-79.8774835351353,-79.8763209997666,-79.8752106597317,-79.8749749309539,-79.8745993479926,-79.8745857106249,-79.8748576151246,-79.8739747526833,-79.8735688312027,-79.8729123569446,-79.8731709834837,-79.873684112682,-79.8741499033219,-79.8758725697323,-79.8758457758639,-79.8764222185359,-79.8771606168787,-79.8784637183066,-79.878463815388],"lat":[-3.36696067314497,-3.3669611250455,-3.36731045532138,-3.36812099754731,-3.36826072795522,-3.36883306782605,-3.36884455599004,-3.36885482697335,-3.36793299875525,-3.36771579828274,-3.36747207392759,-3.36746726089799,-3.36746099855624,-3.36739433797853,-3.36737337459162,-3.36728933877731,-3.36697519078168,-3.36657096646562,-3.36593912017862,-3.36566806129368,-3.36579606800636,-3.36521791234775,-3.36485660592664,-3.36440966881627,-3.3643618788214,-3.36425955745381,-3.36416717491915,-3.36406921121961,-3.36399078439292,-3.36391091218299,-3.36387476215604,-3.36370017774791,-3.36364050564142,-3.36330895062254,-3.36305560022183,-3.36283850307532,-3.36236803494214,-3.36195127079329,-3.36195078680236,-3.3608483240746,-3.36060309100067,-3.36032021518909,-3.35992459160886,-3.35965068689927,-3.35938392938826,-3.35888530829838,-3.35882621793757,-3.3582683035987,-3.35772091597226,-3.3571797376248,-3.35676716135299,-3.35665689063936,-3.35702746956169,-3.35658100533575,-3.35705661702022,-3.35716159127393,-3.35730346383797,-3.35767045803191,-3.35797464493359,-3.35818089479562,-3.35829021097273,-3.35829023390406,-3.35853171495043,-3.35867908168184,-3.35914973607612,-3.35952211857844,-3.35970010853925,-3.35989799497038,-3.36003780385148,-3.36061171967312,-3.36063868922673,-3.36147857601214,-3.36333953748575,-3.36486004229413,-3.36560421889653,-3.36603234422976,-3.36604709734082,-3.3663845282482,-3.36770806258951,-3.36801193194873,-3.36810277173074,-3.36823071768513,-3.36814086096717,-3.36851768412161,-3.36696751520349,-3.36678657898262,-3.36642543596057,-3.36610970609012,-3.36696069567429,-3.36696067314497]}]]],null,"fnca",{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}},"pane":"polygon","stroke":true,"color":"#333333","weight":0.5,"opacity":0.9,"fill":true,"fillColor":"#6666FF","fillOpacity":0.6,"smoothFactor":1,"noClip":false},"<div class='scrollableContainer'><table class=mapview-popup id='popup'><tr class='coord'><td><\/td><th><b>Feature ID&emsp;<\/b><\/th><td>1&emsp;<\/td><\/tr><tr><td>1<\/td><th>Cultivo&emsp;<\/th><td>Potrero&emsp;<\/td><\/tr><tr><td>2<\/td><th>areaKm&emsp;<\/th><td>0.0716&emsp;<\/td><\/tr><tr><td>3<\/td><th>perimetroK&emsp;<\/th><td>1.8312&emsp;<\/td><\/tr><tr><td>4<\/td><th>Produccion&emsp;<\/th><td>0&emsp;<\/td><\/tr><tr><td>5<\/td><th>geometry&emsp;<\/th><td>sfc_POLYGON&emsp;<\/td><\/tr><\/table><\/div>",{"maxWidth":800,"minWidth":50,"autoPan":true,"keepInView":false,"closeButton":true,"closeOnClick":true,"className":""},"1",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},{"stroke":true,"weight":1,"opacity":0.9,"fillOpacity":0.84,"bringToFront":false,"sendToBack":false}]},{"method":"addScaleBar","args":[{"maxWidth":100,"metric":true,"imperial":true,"updateWhenIdle":true,"position":"bottomleft"}]},{"method":"addHomeButton","args":[-79.8881947158205,-3.36885482697335,-79.8729123569446,-3.35658100533575,true,"fnca","Zoom to fnca","<strong> fnca <\/strong>","bottomright"]},{"method":"addLayersControl","args":[["CartoDB.Positron","CartoDB.DarkMatter","OpenStreetMap","Esri.WorldImagery","OpenTopoMap"],"fnca",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]},{"method":"addLegend","args":[{"colors":["#6666FF"],"labels":["fnca"],"na_color":null,"na_label":"NA","opacity":1,"position":"topright","type":"factor","title":"","extra":null,"layerId":null,"className":"info legend","group":"fnca"}]}],"limits":{"lat":[-3.36885482697335,-3.35658100533575],"lng":[-79.8881947158205,-79.8729123569446]},"fitBounds":[-3.36885482697335,-79.8881947158205,-3.35658100533575,-79.8729123569446,[]]},"evals":[],"jsHooks":{"render":[{"code":"function(el, x, data) {\n  return (\n      function(el, x, data) {\n      // get the leaflet map\n      var map = this; //HTMLWidgets.find('#' + el.id);\n      // we need a new div element because we have to handle\n      // the mouseover output separately\n      // debugger;\n      function addElement () {\n      // generate new div Element\n      var newDiv = $(document.createElement('div'));\n      // append at end of leaflet htmlwidget container\n      $(el).append(newDiv);\n      //provide ID and style\n      newDiv.addClass('lnlt');\n      newDiv.css({\n      'position': 'relative',\n      'bottomleft':  '0px',\n      'background-color': 'rgba(255, 255, 255, 0.7)',\n      'box-shadow': '0 0 2px #bbb',\n      'background-clip': 'padding-box',\n      'margin': '0',\n      'padding-left': '5px',\n      'color': '#333',\n      'font': '9px/1.5 \"Helvetica Neue\", Arial, Helvetica, sans-serif',\n      'z-index': '700',\n      });\n      return newDiv;\n      }\n\n\n      // check for already existing lnlt class to not duplicate\n      var lnlt = $(el).find('.lnlt');\n\n      if(!lnlt.length) {\n      lnlt = addElement();\n\n      // grab the special div we generated in the beginning\n      // and put the mousmove output there\n\n      map.on('mousemove', function (e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                           ' lon: ' + (e.latlng.lng).toFixed(5) +\n                           ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                           ' | zoom: ' + map.getZoom() +\n                           ' | x: ' + L.CRS.EPSG3857.project(e.latlng).x.toFixed(0) +\n                           ' | y: ' + L.CRS.EPSG3857.project(e.latlng).y.toFixed(0) +\n                           ' | epsg: 3857 ' +\n                           ' | proj4: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs ');\n      } else {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      }\n      });\n\n      // remove the lnlt div when mouse leaves map\n      map.on('mouseout', function (e) {\n      var strip = document.querySelector('.lnlt');\n      if( strip !==null) strip.remove();\n      });\n\n      };\n\n      //$(el).keypress(67, function(e) {\n      map.on('preclick', function(e) {\n      if (e.originalEvent.ctrlKey) {\n      if (document.querySelector('.lnlt') === null) lnlt = addElement();\n      lnlt.text(\n                      ' lon: ' + (e.latlng.lng).toFixed(5) +\n                      ' | lat: ' + (e.latlng.lat).toFixed(5) +\n                      ' | zoom: ' + map.getZoom() + ' ');\n      var txt = document.querySelector('.lnlt').textContent;\n      console.log(txt);\n      //txt.innerText.focus();\n      //txt.select();\n      setClipboardText('\"' + txt + '\"');\n      }\n      });\n\n      }\n      ).call(this.getMap(), el, x, data);\n}","data":null},{"code":"function(el, x, data) {\n  return (function(el,x,data){\n           var map = this;\n\n           map.on('keypress', function(e) {\n               console.log(e.originalEvent.code);\n               var key = e.originalEvent.code;\n               if (key === 'KeyE') {\n                   var bb = this.getBounds();\n                   var txt = JSON.stringify(bb);\n                   console.log(txt);\n\n                   setClipboardText('\\'' + txt + '\\'');\n               }\n           })\n        }).call(this.getMap(), el, x, data);\n}","data":null}]}}</script>
+<ul>
+<li>preparar el espacio o cuariculas, donde se van a poner los valores de la interpolación</li>
+</ul>
+<pre class="r"><code>ext &lt;- extent(fnca)</code></pre>
+<p>– crear un objeto, para ver los valores grid</p>
+<p>– x &lt;- seq(from = ext[1], to = ext[2], by =10)</p>
+<pre class="r"><code>grd &lt;- expand.grid(x =seq(from = ext[1], to = ext[2], by =10),
+                   y =seq(from = ext[3], to = ext[4], by =10))
+
+coordinates(grd) &lt;- ~x + y
+crs(grd) &lt;- crs(fnca)  
+plot(grd)  </code></pre>
+<p><img src="IDW_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre class="r"><code>gridded(grd) &lt;- TRUE</code></pre>
+<ul>
+<li>preparar toda la infromacion para la interpolación</li>
+</ul>
+<pre class="r"><code>pts &lt;- lts[[1]]  
+coordinates(pts) &lt;- ~ x + y
+crs(pts) &lt;- crs(fnca) 
+#plot(pts)</code></pre>
+<ul>
+<li><p>Interpolación ———————————————————–</p></li>
+<li><p>Primera capa ————————————————————</p></li>
+</ul>
+<pre class="r"><code>idw.p &lt;- gstat::idw(DA ~1,pts,grd)</code></pre>
+<pre><code>## [inverse distance weighted interpolation]</code></pre>
+<pre class="r"><code>plot(idw.p)</code></pre>
+<p><img src="IDW_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<pre class="r"><code>idw.p &lt;- raster(idw.p)
+#plot(idw.p)
+idw.p &lt;- raster::mask(idw.p,fnca)
+#plot(idw.p)</code></pre>
+<ul>
+<li>Función para oprtimizar ————————————————</li>
+</ul>
+<pre class="r"><code>calc_idw &lt;- function(x){
+  print(x)
+  pts &lt;- lts[[x]] 
+  a &lt;- unique(pts$Profund)
+  coordinates(pts) &lt;- ~ x + y
+  crs(pts) &lt;- crs(fnca) 
+  idw.p &lt;- gstat::idw(DA ~1,pts,grd)
+  idw.p &lt;- raster(idw.p)
+  idw.p &lt;- raster::mask(idw.p,fnca)
+  dir.create(&quot;DA&quot;)
+  writeRaster(idw.p,paste0(&quot;DA/idw_DA&quot;,a, &quot;.tif&quot;), overwrite= TRUE)
+}</code></pre>
+<pre class="r"><code>ord &lt;- c(1:length(lts))
+rsl &lt;- map(.x= ord, .f= calc_idw)</code></pre>
+<pre><code>## [1] 1
+## [inverse distance weighted interpolation]</code></pre>
+<pre><code>## Warning in dir.create(&quot;DA&quot;): &#39;DA&#39; already exists</code></pre>
+<pre><code>## [1] 2
+## [inverse distance weighted interpolation]</code></pre>
+<pre><code>## Warning in dir.create(&quot;DA&quot;): &#39;DA&#39; already exists</code></pre>
+<pre><code>## [1] 3
+## [inverse distance weighted interpolation]</code></pre>
+<pre><code>## Warning in dir.create(&quot;DA&quot;): &#39;DA&#39; already exists</code></pre>
+<pre><code>## [1] 4
+## [inverse distance weighted interpolation]</code></pre>
+<pre><code>## Warning in dir.create(&quot;DA&quot;): &#39;DA&#39; already exists</code></pre>
+<pre class="r"><code> #leer archivos
+fle &lt;- list.files(&quot;./DA/&quot;, full.names = T, pattern = &quot;.tif$&quot;)
+lyr &lt;- stack(fle)
+#plot(lyr)</code></pre>
+<ul>
+<li>extraer los valores</li>
+</ul>
+<pre class="r"><code>tbl &lt;- rasterToPoints(lyr, xy =TRUE) %&gt;% as_tibble() %&gt;% 
+  gather(var, value , -x,-y)
+head(tbl,2)</code></pre>
+<pre><code>## # A tibble: 2 x 4
+##         x        y var        value
+##     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
+## 1 624412. 9628915. idw_DA0.10  1.52
+## 2 624422. 9628915. idw_DA0.10  1.52</code></pre>
+<pre class="r"><code>unique((tbl$var))</code></pre>
+<pre><code>## [1] &quot;idw_DA0.10&quot;  &quot;idw_DA10.20&quot; &quot;idw_DA20.30&quot; &quot;idw_DA30.40&quot;</code></pre>
+<ul>
+<li>cambiar nombre de</li>
+</ul>
+<pre class="r"><code>tbl$var &lt;- gsub(&quot;idw_DA0.10&quot;, &quot;0-10&quot;,tbl$var)
+tbl$var &lt;- gsub(&quot;idw_DA10.20&quot;, &quot;10-20&quot;,tbl$var)
+tbl$var &lt;- gsub(&quot;idw_DA20.30&quot;, &quot;20-30&quot;,tbl$var)
+tbl$var &lt;- gsub(&quot;idw_DA30.40&quot;, &quot;30-40&quot;,tbl$var)
+unique((tbl$var))</code></pre>
+<pre><code>## [1] &quot;0-10&quot;  &quot;10-20&quot; &quot;20-30&quot; &quot;30-40&quot;</code></pre>
+<ul>
+<li>ggplot ——————————————————————</li>
+<li>paleta de colores</li>
+</ul>
+<pre class="r"><code>pal &lt;- wes_palette(&quot;Zissou1&quot;,5,&quot;continuous&quot;)</code></pre>
+<ul>
+<li>valores</li>
+</ul>
+<pre class="r"><code>max(tbl$value)</code></pre>
+<pre><code>## [1] 1.751973</code></pre>
+<pre class="r"><code>min(tbl$value)</code></pre>
+<pre><code>## [1] 1.215154</code></pre>
+<ul>
+<li>pts</li>
+</ul>
+<pre class="r"><code>pts &lt;- lts[[1]]
+coordinates(pts) &lt;- ~x+y
+crs(pts) &lt;- crs(fnca) </code></pre>
+<ul>
+<li>ggplot</li>
+</ul>
+<pre class="r"><code>gg &lt;- ggplot()+
+  geom_raster(data = tbl, mapping = aes(x = x, y = y, fill = value))+
+  facet_wrap(~var)+
+  scale_fill_gradientn(colours = pal, na.value = &quot;white&quot;, limits = c(1.2, 1.8),
+                       breaks = seq(1.2, 1.8, by = 0.1))+
+  geom_sf(data = st_as_sf(fnca), fill = NA)+
+  geom_sf(data = st_as_sf(pts), color = &quot;gray50&quot;)+
+  theme_bw()+
+  labs(x = &quot;&quot;, y = &quot;&quot;, fill = bquote(&quot;(&quot;*g~&quot;cm&quot;^-3*&quot;)&quot;))+
+  scale_x_continuous(limits = c(ext[1], ext[2]), breaks = seq(624000, 625209.5, 500))+
+  scale_y_continuous(limits = c(ext[3], ext[4]), breaks = seq(9628000, 9633280, 500))+
+  coord_sf(xlim = extent(fnca)[1:2], ylim = extent(fnca)[3:4], datum = sf::st_crs(32717))+
+  theme(panel.background = element_rect(fill = &quot;white&quot;, color = &quot;gray50&quot;),
+        legend.title.align = 0.5,
+        #strip.text = element_blank(),
+        #strip.background = element_blank(),
+        #legend.key.width = unit(5, &quot;line&quot;),
+        #panel.grid.minor = element_blank(),
+        axis.text.y = element_text(angle = 90, hjust = 0.5),
+        legend.position = &quot;right&quot;,
+        legend.key.width = unit(1, &quot;line&quot;),
+        legend.key.height = unit(4, &quot;line&quot;))+
+  guides(shape = guide_legend(override.aes = list(size = 10)))
+
+plot(gg)</code></pre>
+<p><img src="IDW_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<pre class="r"><code>dir.create(&quot;mp/&quot;)</code></pre>
+<pre><code>## Warning in dir.create(&quot;mp/&quot;): &#39;mp&#39; already exists</code></pre>
+<pre class="r"><code>ggsave(plot = gg, filename = &quot;mp/mapa.png&quot;, width = 25, height = 15, units = &quot;cm&quot;, dpi = 300)</code></pre>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

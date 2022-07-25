@@ -42,7 +42,23 @@ navbar:
         - text: "Semana 15"
           href: page-o.html
         - text: "Semana 16"
-          href: page-p.html          
+          href: page-p.html    
+    - text: "Talleres "
+      menu:
+        - text: "Taller2"
+          href: taller2.html
+        - text: "Taller4"
+          href: taller4.html
+        - text: "Taller5"
+          href: taller5.html
+        - text: "Taller6"
+          href: taller6.html
+        - text: "Interpolación IDW"
+          href: IDW.html
+    - text: "Glosario "
+      menu:
+        - text: "Primer Hemiciclo"
+          href: primer_hemiciclo.html
 output:
   html_document:
     theme: cerulean

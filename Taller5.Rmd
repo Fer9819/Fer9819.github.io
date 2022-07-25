@@ -1,0 +1,120 @@
+---
+title: 
+geometry: margin=2cm
+header-includes: 
+    - \usepackage{amsmath}
+    - \usepackage{amssymb}
+    - \usepackage{amsfonts}
+date: "16/07/2022"
+output: pdf_document
+---
+<center>
+
+![](LOGO_OUT.png){height=75px}
+
+
+**Universidad Técnica de Machala**
+
+**Facultad de Ciencias Agropecuarias**
+
+**Carrera de Agronomía**
+
+**Geomática**
+
+ **Taller 5: Operaciones espaciales sobre datos vectoriales**
+
+</center>
+
+1. **Datos Informativos**
+
+    **Docente:** Ing. Agr. Angel Eduardo Luna Romero
+
+  
+
+    
+    1. Con el archivo **Parroquias**, calcular el área de la parroquias del cantón **Pasaje**, en las siguientes unidades: $m^2$, $km^2$ y $ha$
+
+```{r,warning=FALSE, include=FALSE}
+library(pacman)
+p_load(sf, raster, sp, rgdal, tidyverse)
+setwd('C:/Users/Eirck/Desktop/diarios/Fer9819.github.io/')
+prq <- st_read("parroquias.shp")
+```
+
+```{r,warning=FALSE, eval=FALSE}
+library(pacman)
+p_load(sf, raster, sp, rgdal, tidyverse)
+setwd('C:/Users/Eirck/Desktop/diarios/Fer9819.github.io/')
+prq <- st_read('parroquias.shp')
+names(prq)
+```
+
+```{r}
+names(prq)
+```
+
+```{r, eval=FALSE}
+sort(unique(prq$DPA_DESPRO)) # ordena los elementos de A-Z
+```
+
+```{r, eval=FALSE}
+el_oro <- prq %>% filter(DPA_DESPRO == "EL ORO" )
+plot(st_geometry(el_oro))
+```
+
+```{r, fig.align='center', fig.height=3, echo=FALSE}
+el_oro <- prq %>% filter(DPA_DESPRO == "EL ORO" )
+par(oma=c(0,0,0.2,0), mar=c(2.3,2.2,1,0.5), mgp=c(1.2,0.5,0))
+plot(st_geometry(el_oro))
+```
+
+```{r, eval=FALSE}
+Pasaje <- el_oro %>% filter(DPA_DESCAN == "PASAJE") %>% 
+  dplyr::select(Canton = DPA_DESCAN, Parroquias = DPA_DESPAR)
+plot(Pasaje)
+```
+
+```{r, echo=FALSE, fig.align='center', fig.height=3}
+Pasaje <- el_oro %>% filter(DPA_DESCAN == "PASAJE") %>% 
+  dplyr::select(Canton = DPA_DESCAN, Parroquias = DPA_DESPAR)
+par(oma=c(0,0,0.2,0), mar=c(2.3,2.2,1,0.5), mgp=c(1.2,0.5,0))
+plot(Pasaje)
+```
+
+```{r}
+head(Pasaje)
+# Crear un nuevo campo, area_m2 
+Pasaje$area_m2 <- st_area(Pasaje) 
+head(Pasaje)
+```
+
+```{r}
+# Para calcular en km2 se define la unidad con el uso de package units
+Pasaje$area_km2 <- units::set_units(st_area(Pasaje), km^2) 
+head(Pasaje)
+
+Pasaje$area_ha <- units::set_units(st_area(Pasaje), ha) 
+head(Pasaje)
+```
+
+2. Determinar los centroides de las parroquias del literal anterior con sus respectivas coordenadas y generar un **buffer** de **2000 m**. Luego crear un buffer de **2000**, **2500**, **3000** y **3500** metros, respectivamente.
+
+```{r, warning=FALSE}
+pts_c <- st_centroid(Pasaje %>% dplyr::select(Parroquias))
+# Con st_coordinates() se determina las coordenadas de "x" & "y" al mismo tiempo
+# por eso se usa los corchetes [,] para indicar la información 1 es para "x", 2 para "y"
+pts_c$x <- st_coordinates(pts_c)[,1]
+pts_c$y <- st_coordinates(pts_c)[,2]
+# Ordenar las columnas
+pts_c <- pts_c %>% dplyr::select(Parroquias, x, y)
+head(pts_c)
+pts_bf <- st_buffer(pts_c, dist = 2000)
+plot(st_geometry(pts_bf), col = "blue")
+plot(st_geometry(pts_c), add = T)
+# Crear buffer de 2000, 2500, 3000, 3500
+pts_bf <- st_buffer(pts_c, dist = c(2000, 2500, 3000, 3500))
+plot(st_geometry(pts_bf), col = "yellow")
+plot(st_geometry(pts_c), add = T)
+```
+
+

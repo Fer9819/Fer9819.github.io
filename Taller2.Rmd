@@ -1,0 +1,76 @@
+---
+title: 
+geometry: margin=2cm
+header-includes: 
+    - \usepackage{amsmath}
+    - \usepackage{amssymb}
+    - \usepackage{amsfonts}
+date: "15/07/2022"
+output: pdf_document
+---
+<center>
+
+![](LOGO_OUT.png){height=75px}
+
+
+**Universidad Técnica de Machala**
+
+**Facultad de Ciencias Agropecuarias**
+
+**Carrera de Agronomía**
+
+**Geomática**
+
+ **Taller 2: Creación de archivos shapefile en programa R**
+
+</center>
+
+1. **Datos Informativos**
+
+    **Docente:** Ing. Agr. Angel Eduardo Luna Romero
+
+    
+    **Fecha:** 15-07-2022
+
+
+
+- Conectar directorio, primero crear una carpeta dentro del disco duro, si en su máquina el disco está fraccionado puede ser en la unidad **D**, sino directamente en la unidad **C**
+
+```{r}
+setwd("C:/Users/Eirck/Desktop/diarios/")
+```
+- Librerías a utilizar, pero recuerde en caso de no contar con estas librerías debe proceder a instalar con la siguiente función: `install.packages("NamePackage", dependencies = TRUE)`
+```{r , include=FALSE}
+library(tidyverse)
+library(sf) 
+library(rgdal)
+library(raster)
+library(sp)
+```
+- Cargar archivo ***.csv***
+```{r}
+tbl <- suppressMessages(read_csv('Archivo2.csv'))
+```
+- Crear un punto en formato **sfg** (Simple feature geometries)
+```{r}
+p1 <- c(-78,-2)
+pt1 <- st_point(c(-78,-2)) # values X; Y
+pt1 <- st_point(p1) # st_point: función para crear punto 
+pt2 <- st_point(c(-78, -2, 20)) # values X; Y; Z
+```
+- Crear objeto multipunto
+```{r, fig.height=3}
+p1 <- c(-78, -2)
+p2 <- c(-78.5, -2.5)
+mpt1 <- st_multipoint(rbind(c(-78, -2), c(-78.5, -2.5)))
+pts <- c(p1, p2)
+pts <- matrix(pts, ncol = 2, byrow = TRUE)
+ptsdf <- as.data.frame(pts)
+mpt2 <- st_multipoint(rbind(p1, p2))
+mpt3 <- st_multipoint(pts)
+# mpt4 <- st_multipoint(ptsdf) # no ejecuta con data.frame
+plot(mpt1)
+```
+
+
+

@@ -1,0 +1,83 @@
+---
+title: 
+geometry: margin=2cm
+header-includes: 
+    - \usepackage{amsmath}
+    - \usepackage{amssymb}
+    - \usepackage{amsfonts}
+date: "16/07/2022"
+output: pdf_document
+---
+<center>
+
+![](LOGO_OUT.png){height=75px}
+
+
+**Universidad Técnica de Machala**
+
+**Facultad de Ciencias Agropecuarias**
+
+**Carrera de Agronomía**
+
+**Geomática**
+
+ **Taller 4: Creación de zona de influencia en programa R**
+
+</center>
+
+1. **Datos Informativos**
+
+    **Docente:** Ing. Agr. Angel Eduardo Luna Romero
+
+    
+    **Fecha:** 16/07/2022
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(xtable)
+library(tidyverse)
+library(outliers)
+library(sf)
+library(rgdal)
+library(raster)
+library(sp)
+```
+
+
+
+- Conectar directorio, primero crear una carpeta dentro del disco duro, si en su máquina el disco está fraccionado puede ser en la unidad **D**, sino directamente en la unidad **C**
+
+```{r}
+setwd('C:/Users/Eirck/Desktop/diarios/')
+```
+- Librerías a utilizar, pero recuerde en caso de no contar con estas librerías debe proceder a instalar con la siguiente función: `install.packages("NamePackage", dependencies = TRUE)`
+```{r}
+library(tidyverse)
+library(sf) 
+library(rgdal)
+library(raster)
+library(sp)
+```
+- Cargar archivo ***.csv***
+```{r}
+tbl <- suppressMessages(read_csv('Archivo2.csv'))
+```
+- Manejo de datos
+```{r}
+tlb1 <- as.matrix(tbl[-length(tbl$x),])
+puntos <- st_sfc(st_multipoint(tlb1), crs = 4326)
+tbl2 <- data.frame(Id = paste0("P", 1:length(tbl$x)), x = tbl$x, y = tbl$y)
+puntos <- st_sf(puntos)
+punots2 <- st_as_sf(tbl2, coords = c("x", "y"), crs = 4326)
+lna <- st_sfc(st_linestring(tlb1), crs = 4326) %>% st_sf 
+pl1 <- st_sfc(st_multipolygon(list(list(as.matrix(tbl)))), crs = 4326) 
+pl1 <- st_sf(pl1) 
+
+ctn <- st_read('parroquias1.shp')
+plot(ctn)
+oro <- dplyr::filter(ctn, PROVINCIA == "EL ORO")
+mach <- oro %>% dplyr::filter(CANTON == "MACHALA")
+rtr <- mach %>% dplyr::filter(NOMBRE == "EL RETIRO")
+
+```
