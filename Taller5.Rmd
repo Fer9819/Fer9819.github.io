@@ -1,13 +1,4 @@
----
-title: 
-geometry: margin=2cm
-header-includes: 
-    - \usepackage{amsmath}
-    - \usepackage{amssymb}
-    - \usepackage{amsfonts}
-date: "16/07/2022"
-output: pdf_document
----
+
 <center>
 
 ![](LOGO_OUT.png){height=75px}

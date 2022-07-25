@@ -60,7 +60,7 @@ view(dts2)
 Guardar un shape
 
 ```{r}
-st_write(dts2, 'shapefile3.shp')
+#st_write(dts2, 'shapefile3.shp')
 ```
 ```{r}
 plot(dts1$x,dts1$y)
