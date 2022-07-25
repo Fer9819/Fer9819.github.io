@@ -59,6 +59,14 @@ navbar:
       menu:
         - text: "Primer Hemiciclo"
           href: primer_hemiciclo.html
+    - text: "Syllabus "
+      menu:
+        - text: "Syllabus"
+          href: syllabus.html
+    - text: "Archivos descargar "
+      menu:
+        - text: "Archivos"
+          href: archivos.html
 output:
   html_document:
     theme: cerulean

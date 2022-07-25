@@ -1,0 +1,24 @@
+
+
+<a href="download/semana2.rar" download="Semana2.rar">Semana 2</a>
+
+<a href="download/semana4.rar" download="Semana4.rar">Semana 4</a>
+
+
+<a href="download/semana5.rar" download="Semana5.rar">Semana 5</a>
+
+
+<a href="download/semana7.rar" download="Semana7.rar">Semana 7</a>
+
+
+<a href="download/Taller2.rar" download="Taller2.rar">Taller2</a>
+
+
+<a href="download/taller4.rar" download="Taller4.rar">Taller4</a>
+
+<a href="download/Parroquias.rar" download="Taller5.rar">Taller5</a>
+
+<a href="download/semana6.rar" download="Taller6.rar">Taller6</a>
+
+
+<a href="download/IDW_R.rar" download="Interpolación_IDW_R.rar">Interpolación IDW </a>
