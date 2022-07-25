@@ -379,8 +379,8 @@ setwd(&#39;C:/Users/Eirck/Desktop/diarios/Fer9819.github.io/&#39;)
 prq &lt;- st_read(&#39;parroquias.shp&#39;)
 names(prq)</code></pre>
 <pre class="r"><code>names(prq)</code></pre>
-<pre><code>## [1] &quot;DPA_PARROQ&quot; &quot;DPA_DESPAR&quot; &quot;DPA_VALOR&quot;  &quot;DPA_ANIO&quot;   &quot;DPA_CANTON&quot; &quot;DPA_DESCAN&quot; &quot;DPA_PROVIN&quot; &quot;DPA_DESPRO&quot;
-## [9] &quot;geometry&quot;</code></pre>
+<pre><code>## [1] &quot;DPA_PARROQ&quot; &quot;DPA_DESPAR&quot; &quot;DPA_VALOR&quot;  &quot;DPA_ANIO&quot;   &quot;DPA_CANTON&quot;
+## [6] &quot;DPA_DESCAN&quot; &quot;DPA_PROVIN&quot; &quot;DPA_DESPRO&quot; &quot;geometry&quot;</code></pre>
 <pre class="r"><code>sort(unique(prq$DPA_DESPRO)) # ordena los elementos de A-Z</code></pre>
 <pre class="r"><code>el_oro &lt;- prq %&gt;% filter(DPA_DESPRO == &quot;EL ORO&quot; )
 plot(st_geometry(el_oro))</code></pre>
@@ -390,235 +390,76 @@ plot(st_geometry(el_oro))</code></pre>
 plot(Pasaje)</code></pre>
 <p><img src="Taller5_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>head(Pasaje)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Canton</th>
-<th align="left">Parroquias</th>
-<th align="left">geometry</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">PASAJE</td>
-<td align="left">MULTIPOLYGON (((631477.3 96…</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">BUENAVISTA</td>
-<td align="left">MULTIPOLYGON (((626252.7 96…</td>
-</tr>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">CASACAY</td>
-<td align="left">MULTIPOLYGON (((647122.1 96…</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">LA PEAÑA</td>
-<td align="left">MULTIPOLYGON (((629359.8 96…</td>
-</tr>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">PROGRESO</td>
-<td align="left">MULTIPOLYGON (((654465.2 96…</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">UZHCURRUMI</td>
-<td align="left">MULTIPOLYGON (((647844.6 96…</td>
-</tr>
-</tbody>
-</table>
+<pre><code>## Simple feature collection with 6 features and 2 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 622520.1 ymin: 9616779 xmax: 661190 ymax: 9648384
+## Projected CRS: WGS 84 / UTM zone 17S
+##   Canton Parroquias                       geometry
+## 1 PASAJE     PASAJE MULTIPOLYGON (((631477.3 96...
+## 2 PASAJE BUENAVISTA MULTIPOLYGON (((626252.7 96...
+## 3 PASAJE    CASACAY MULTIPOLYGON (((647122.1 96...
+## 4 PASAJE   LA PEAÑA MULTIPOLYGON (((629359.8 96...
+## 5 PASAJE   PROGRESO MULTIPOLYGON (((654465.2 96...
+## 6 PASAJE UZHCURRUMI MULTIPOLYGON (((647844.6 96...</code></pre>
 <pre class="r"><code># Crear un nuevo campo, area_m2 
 Pasaje$area_m2 &lt;- st_area(Pasaje) 
 head(Pasaje)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Canton</th>
-<th align="left">Parroquias</th>
-<th align="left">geometry</th>
-<th align="right">area_m2</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">PASAJE</td>
-<td align="left">MULTIPOLYGON (((631477.3 96…</td>
-<td align="right">131794123 [m^2]</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">BUENAVISTA</td>
-<td align="left">MULTIPOLYGON (((626252.7 96…</td>
-<td align="right">40971872 [m^2]</td>
-</tr>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">CASACAY</td>
-<td align="left">MULTIPOLYGON (((647122.1 96…</td>
-<td align="right">60570627 [m^2]</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">LA PEAÑA</td>
-<td align="left">MULTIPOLYGON (((629359.8 96…</td>
-<td align="right">16818866 [m^2]</td>
-</tr>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">PROGRESO</td>
-<td align="left">MULTIPOLYGON (((654465.2 96…</td>
-<td align="right">149762171 [m^2]</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">UZHCURRUMI</td>
-<td align="left">MULTIPOLYGON (((647844.6 96…</td>
-<td align="right">30857629 [m^2]</td>
-</tr>
-</tbody>
-</table>
+<pre><code>## Simple feature collection with 6 features and 3 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 622520.1 ymin: 9616779 xmax: 661190 ymax: 9648384
+## Projected CRS: WGS 84 / UTM zone 17S
+##   Canton Parroquias                       geometry         area_m2
+## 1 PASAJE     PASAJE MULTIPOLYGON (((631477.3 96... 131794123 [m^2]
+## 2 PASAJE BUENAVISTA MULTIPOLYGON (((626252.7 96...  40971872 [m^2]
+## 3 PASAJE    CASACAY MULTIPOLYGON (((647122.1 96...  60570627 [m^2]
+## 4 PASAJE   LA PEAÑA MULTIPOLYGON (((629359.8 96...  16818866 [m^2]
+## 5 PASAJE   PROGRESO MULTIPOLYGON (((654465.2 96... 149762171 [m^2]
+## 6 PASAJE UZHCURRUMI MULTIPOLYGON (((647844.6 96...  30857629 [m^2]</code></pre>
 <pre class="r"><code># Para calcular en km2 se define la unidad con el uso de package units
 Pasaje$area_km2 &lt;- units::set_units(st_area(Pasaje), km^2) 
 head(Pasaje)</code></pre>
-<table>
-<colgroup>
-<col width="8%" />
-<col width="13%" />
-<col width="37%" />
-<col width="19%" />
-<col width="20%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Canton</th>
-<th align="left">Parroquias</th>
-<th align="left">geometry</th>
-<th align="right">area_m2</th>
-<th align="right">area_km2</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">PASAJE</td>
-<td align="left">MULTIPOLYGON (((631477.3 96…</td>
-<td align="right">131794123 [m^2]</td>
-<td align="right">131.79412 [km^2]</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">BUENAVISTA</td>
-<td align="left">MULTIPOLYGON (((626252.7 96…</td>
-<td align="right">40971872 [m^2]</td>
-<td align="right">40.97187 [km^2]</td>
-</tr>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">CASACAY</td>
-<td align="left">MULTIPOLYGON (((647122.1 96…</td>
-<td align="right">60570627 [m^2]</td>
-<td align="right">60.57063 [km^2]</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">LA PEAÑA</td>
-<td align="left">MULTIPOLYGON (((629359.8 96…</td>
-<td align="right">16818866 [m^2]</td>
-<td align="right">16.81887 [km^2]</td>
-</tr>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">PROGRESO</td>
-<td align="left">MULTIPOLYGON (((654465.2 96…</td>
-<td align="right">149762171 [m^2]</td>
-<td align="right">149.76217 [km^2]</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">UZHCURRUMI</td>
-<td align="left">MULTIPOLYGON (((647844.6 96…</td>
-<td align="right">30857629 [m^2]</td>
-<td align="right">30.85763 [km^2]</td>
-</tr>
-</tbody>
-</table>
+<pre><code>## Simple feature collection with 6 features and 4 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 622520.1 ymin: 9616779 xmax: 661190 ymax: 9648384
+## Projected CRS: WGS 84 / UTM zone 17S
+##   Canton Parroquias                       geometry         area_m2
+## 1 PASAJE     PASAJE MULTIPOLYGON (((631477.3 96... 131794123 [m^2]
+## 2 PASAJE BUENAVISTA MULTIPOLYGON (((626252.7 96...  40971872 [m^2]
+## 3 PASAJE    CASACAY MULTIPOLYGON (((647122.1 96...  60570627 [m^2]
+## 4 PASAJE   LA PEAÑA MULTIPOLYGON (((629359.8 96...  16818866 [m^2]
+## 5 PASAJE   PROGRESO MULTIPOLYGON (((654465.2 96... 149762171 [m^2]
+## 6 PASAJE UZHCURRUMI MULTIPOLYGON (((647844.6 96...  30857629 [m^2]
+##           area_km2
+## 1 131.79412 [km^2]
+## 2  40.97187 [km^2]
+## 3  60.57063 [km^2]
+## 4  16.81887 [km^2]
+## 5 149.76217 [km^2]
+## 6  30.85763 [km^2]</code></pre>
 <pre class="r"><code>Pasaje$area_ha &lt;- units::set_units(st_area(Pasaje), ha) 
 head(Pasaje)</code></pre>
-<table style="width:100%;">
-<colgroup>
-<col width="7%" />
-<col width="11%" />
-<col width="31%" />
-<col width="16%" />
-<col width="17%" />
-<col width="15%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Canton</th>
-<th align="left">Parroquias</th>
-<th align="left">geometry</th>
-<th align="right">area_m2</th>
-<th align="right">area_km2</th>
-<th align="right">area_ha</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">PASAJE</td>
-<td align="left">MULTIPOLYGON (((631477.3 96…</td>
-<td align="right">131794123 [m^2]</td>
-<td align="right">131.79412 [km^2]</td>
-<td align="right">13179.412 [ha]</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">BUENAVISTA</td>
-<td align="left">MULTIPOLYGON (((626252.7 96…</td>
-<td align="right">40971872 [m^2]</td>
-<td align="right">40.97187 [km^2]</td>
-<td align="right">4097.187 [ha]</td>
-</tr>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">CASACAY</td>
-<td align="left">MULTIPOLYGON (((647122.1 96…</td>
-<td align="right">60570627 [m^2]</td>
-<td align="right">60.57063 [km^2]</td>
-<td align="right">6057.063 [ha]</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">LA PEAÑA</td>
-<td align="left">MULTIPOLYGON (((629359.8 96…</td>
-<td align="right">16818866 [m^2]</td>
-<td align="right">16.81887 [km^2]</td>
-<td align="right">1681.887 [ha]</td>
-</tr>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="left">PROGRESO</td>
-<td align="left">MULTIPOLYGON (((654465.2 96…</td>
-<td align="right">149762171 [m^2]</td>
-<td align="right">149.76217 [km^2]</td>
-<td align="right">14976.217 [ha]</td>
-</tr>
-<tr class="even">
-<td align="left">PASAJE</td>
-<td align="left">UZHCURRUMI</td>
-<td align="left">MULTIPOLYGON (((647844.6 96…</td>
-<td align="right">30857629 [m^2]</td>
-<td align="right">30.85763 [km^2]</td>
-<td align="right">3085.763 [ha]</td>
-</tr>
-</tbody>
-</table>
+<pre><code>## Simple feature collection with 6 features and 5 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 622520.1 ymin: 9616779 xmax: 661190 ymax: 9648384
+## Projected CRS: WGS 84 / UTM zone 17S
+##   Canton Parroquias                       geometry         area_m2
+## 1 PASAJE     PASAJE MULTIPOLYGON (((631477.3 96... 131794123 [m^2]
+## 2 PASAJE BUENAVISTA MULTIPOLYGON (((626252.7 96...  40971872 [m^2]
+## 3 PASAJE    CASACAY MULTIPOLYGON (((647122.1 96...  60570627 [m^2]
+## 4 PASAJE   LA PEAÑA MULTIPOLYGON (((629359.8 96...  16818866 [m^2]
+## 5 PASAJE   PROGRESO MULTIPOLYGON (((654465.2 96... 149762171 [m^2]
+## 6 PASAJE UZHCURRUMI MULTIPOLYGON (((647844.6 96...  30857629 [m^2]
+##           area_km2        area_ha
+## 1 131.79412 [km^2] 13179.412 [ha]
+## 2  40.97187 [km^2]  4097.187 [ha]
+## 3  60.57063 [km^2]  6057.063 [ha]
+## 4  16.81887 [km^2]  1681.887 [ha]
+## 5 149.76217 [km^2] 14976.217 [ha]
+## 6  30.85763 [km^2]  3085.763 [ha]</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Determinar los centroides de las parroquias del literal anterior con sus respectivas coordenadas y generar un <strong>buffer</strong> de <strong>2000 m</strong>. Luego crear un buffer de <strong>2000</strong>, <strong>2500</strong>, <strong>3000</strong> y <strong>3500</strong> metros, respectivamente.</li>
 </ol>
@@ -630,54 +471,18 @@ pts_c$y &lt;- st_coordinates(pts_c)[,2]
 # Ordenar las columnas
 pts_c &lt;- pts_c %&gt;% dplyr::select(Parroquias, x, y)
 head(pts_c)</code></pre>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Parroquias</th>
-<th align="right">x</th>
-<th align="right">y</th>
-<th align="left">geometry</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">PASAJE</td>
-<td align="right">636807.5</td>
-<td align="right">9625828</td>
-<td align="left">POINT (636807.5 9625828)</td>
-</tr>
-<tr class="even">
-<td align="left">BUENAVISTA</td>
-<td align="right">629480.6</td>
-<td align="right">9627470</td>
-<td align="left">POINT (629480.6 9627470)</td>
-</tr>
-<tr class="odd">
-<td align="left">CASACAY</td>
-<td align="right">643272.4</td>
-<td align="right">9629754</td>
-<td align="left">POINT (643272.4 9629754)</td>
-</tr>
-<tr class="even">
-<td align="left">LA PEAÑA</td>
-<td align="right">627666.2</td>
-<td align="right">9633969</td>
-<td align="left">POINT (627666.2 9633969)</td>
-</tr>
-<tr class="odd">
-<td align="left">PROGRESO</td>
-<td align="right">645690.0</td>
-<td align="right">9638940</td>
-<td align="left">POINT (645690 9638940)</td>
-</tr>
-<tr class="even">
-<td align="left">UZHCURRUMI</td>
-<td align="right">655654.0</td>
-<td align="right">9629515</td>
-<td align="left">POINT (655654 9629515)</td>
-</tr>
-</tbody>
-</table>
+<pre><code>## Simple feature collection with 6 features and 3 fields
+## Geometry type: POINT
+## Dimension:     XY
+## Bounding box:  xmin: 627666.2 ymin: 9625828 xmax: 655654 ymax: 9638940
+## Projected CRS: WGS 84 / UTM zone 17S
+##   Parroquias        x       y                 geometry
+## 1     PASAJE 636807.5 9625828 POINT (636807.5 9625828)
+## 2 BUENAVISTA 629480.6 9627470 POINT (629480.6 9627470)
+## 3    CASACAY 643272.4 9629754 POINT (643272.4 9629754)
+## 4   LA PEAÑA 627666.2 9633969 POINT (627666.2 9633969)
+## 5   PROGRESO 645690.0 9638940   POINT (645690 9638940)
+## 6 UZHCURRUMI 655654.0 9629515   POINT (655654 9629515)</code></pre>
 <pre class="r"><code>pts_bf &lt;- st_buffer(pts_c, dist = 2000)
 plot(st_geometry(pts_bf), col = &quot;blue&quot;)
 plot(st_geometry(pts_c), add = T)</code></pre>
