@@ -328,6 +328,9 @@ $(document).ready(function () {
     <li>
       <a href="IDW.html">Interpolación IDW</a>
     </li>
+    <li>
+      <a href="webinar.html">Webinar</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -403,8 +406,8 @@ setwd(&#39;C:/Users/Eirck/Desktop/diarios/Fer9819.github.io/&#39;)
 prq &lt;- st_read(&#39;parroquias.shp&#39;)
 names(prq)</code></pre>
 <pre class="r"><code>names(prq)</code></pre>
-<pre><code>## [1] &quot;DPA_PARROQ&quot; &quot;DPA_DESPAR&quot; &quot;DPA_VALOR&quot;  &quot;DPA_ANIO&quot;   &quot;DPA_CANTON&quot; &quot;DPA_DESCAN&quot; &quot;DPA_PROVIN&quot; &quot;DPA_DESPRO&quot;
-## [9] &quot;geometry&quot;</code></pre>
+<pre><code>## [1] &quot;DPA_PARROQ&quot; &quot;DPA_DESPAR&quot; &quot;DPA_VALOR&quot;  &quot;DPA_ANIO&quot;   &quot;DPA_CANTON&quot; &quot;DPA_DESCAN&quot;
+## [7] &quot;DPA_PROVIN&quot; &quot;DPA_DESPRO&quot; &quot;geometry&quot;</code></pre>
 <pre class="r"><code>sort(unique(prq$DPA_DESPRO)) # ordena los elementos de A-Z</code></pre>
 <pre class="r"><code>el_oro &lt;- prq %&gt;% filter(DPA_DESPRO == &quot;EL ORO&quot; )
 plot(st_geometry(el_oro))</code></pre>

@@ -328,6 +328,9 @@ $(document).ready(function () {
     <li>
       <a href="IDW.html">Interpolación IDW</a>
     </li>
+    <li>
+      <a href="webinar.html">Webinar</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -463,8 +466,10 @@ table(pts_sf)</code></pre>
 <ul>
 <li>TAMBIÉN SE PUEDE BAJAR DATOS DESDE LA WEB</li>
 </ul>
-<pre class="r"><code>ecu &lt;- getData(&quot;GADM&quot;, country = &quot;ECU&quot;, level =  0 )
-plot(ecu)</code></pre>
+<pre class="r"><code>ecu &lt;- getData(&quot;GADM&quot;, country = &quot;ECU&quot;, level =  0 )</code></pre>
+<pre><code>## Warning in getData(&quot;GADM&quot;, country = &quot;ECU&quot;, level = 0): getData will be removed in a future version of raster
+## . You can use access these data, and more, with functions from the geodata package instead</code></pre>
+<pre class="r"><code>plot(ecu)</code></pre>
 <p><img src="page-b_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 
 

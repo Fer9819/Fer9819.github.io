@@ -55,6 +55,8 @@ navbar:
           href: Taller6.html
         - text: "Interpolación IDW"
           href: IDW.html
+        - text: "Webinar"
+          href: webinar.html
     - text: "Glosario "
       menu:
         - text: "Primer Hemiciclo"

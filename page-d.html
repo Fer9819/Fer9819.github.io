@@ -328,6 +328,9 @@ $(document).ready(function () {
     <li>
       <a href="IDW.html">Interpolación IDW</a>
     </li>
+    <li>
+      <a href="webinar.html">Webinar</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -404,7 +407,8 @@ plot(img)</code></pre>
 <pre class="r"><code>obj&lt;- paste0(&quot;quinto&quot;,LETTERS[1:2], rep(&quot;alumno&quot;,12), 1:12)
 view(obj)
 head(obj)</code></pre>
-<pre><code>## [1] &quot;quintoAalumno1&quot; &quot;quintoBalumno2&quot; &quot;quintoAalumno3&quot; &quot;quintoBalumno4&quot; &quot;quintoAalumno5&quot; &quot;quintoBalumno6&quot;</code></pre>
+<pre><code>## [1] &quot;quintoAalumno1&quot; &quot;quintoBalumno2&quot; &quot;quintoAalumno3&quot; &quot;quintoBalumno4&quot;
+## [5] &quot;quintoAalumno5&quot; &quot;quintoBalumno6&quot;</code></pre>
 <pre class="r"><code>class(obj)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>#$ nos ayuda cuando lo usemos en otro programa no modifique el mobre del archivo al final</p>
@@ -418,7 +422,9 @@ plot(prm)</code></pre>
 <pre class="r"><code>prm&lt;- mean(prm, na.rm=T)</code></pre>
 <p>st_readsigue las convenciones de la base R, similar a cómo lee datos tabulares en data.frames. Esto significa que los datos de caracteres se leen, por defecto como factors.</p>
 <pre class="r"><code>bsn&lt;- st_read(&quot;SHP/CUENCAS.shp&quot;) #opcion 1 </code></pre>
-<pre><code>## Reading layer `CUENCAS&#39; from data source `C:\Users\Eirck\Desktop\diarios\Fer9819.github.io\SHP\CUENCAS.shp&#39; using driver `ESRI Shapefile&#39;
+<pre><code>## Reading layer `CUENCAS&#39; from data source 
+##   `C:\Users\Eirck\Desktop\diarios\Fer9819.github.io\SHP\CUENCAS.shp&#39; 
+##   using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 3 features and 4 fields
 ## Geometry type: POLYGON
 ## Dimension:     XY
@@ -593,6 +599,11 @@ vls &lt;- rasterToPoints(rst,xy=T) %&gt;%
   mutate(mes=parse_number(var)) %&gt;% 
   inner_join(.,tbl, by = c(&quot;mes&quot;)) %&gt;% 
   dplyr::select(x,y,meses,valor)</code></pre>
+<pre><code>## Warning: `as.tibble()` was deprecated in tibble 2.0.0.
+## Please use `as_tibble()` instead.
+## The signature and semantics have changed, see `?as_tibble`.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.</code></pre>
 </div>
 <div id="graficar-los-valores-promedios" class="section level1">
 <h1>Graficar los valores promedios ——————————————</h1>
